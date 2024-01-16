@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 @Getter
-public class ApiBaseResponse<T> {
+public class ApiResponse<T> {
 
     private final String message;
-    private Object data;
+    private T data;
 
     @JsonCreator
-    public ApiBaseResponse(ResponseCode responseCode) {
+    public ApiResponse(ResponseCode responseCode) {
         this.message = responseCode.getMessage();
     }
 
     @JsonCreator
-    public ApiBaseResponse(ResponseCode responseCode, Object data) {
+    public ApiResponse(ResponseCode responseCode, T data) {
         this.message = responseCode.getMessage();
         this.data = data;
     }
