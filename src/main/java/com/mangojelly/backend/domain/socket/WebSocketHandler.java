@@ -51,15 +51,32 @@ public class WebSocketHandler extends TextWebSocketHandler {
         }
     }
 
+
     //소켓 연결 종료
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        super.handleTransportError(session, exception);
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        var sessionId = session.getId();
+
+        // delete session
+        sessions.remove(sessionId);
+
+        final Message message = new Message();
+        message.closeConnect();
+        message.setSender(sessionId);
+
+        // alert each session
+        sessions.values().forEach(s -> {
+            try{
+                s.sendMessage(new TextMessage(Utils.getString(message)));
+            } catch (Exception e){
+                // TODO : throw
+            }
+        });
     }
 
     //소켓 통신 에러
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        super.afterConnectionClosed(session, status);
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        super.handleTransportError(session, exception);
     }
 }
