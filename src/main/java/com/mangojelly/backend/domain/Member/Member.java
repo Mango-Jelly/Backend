@@ -1,7 +1,8 @@
-package com.mangojelly.backend.domain.Member;
+package com.mangojelly.backend.domain.member;
 
-import com.mangojelly.backend.domain.Movie.Movie;
-import com.mangojelly.backend.domain.Room.Room;
+import com.mangojelly.backend.domain.movie.Movie;
+import com.mangojelly.backend.domain.room.Room;
+import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Member {
+public class Member extends BaseEntity {
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

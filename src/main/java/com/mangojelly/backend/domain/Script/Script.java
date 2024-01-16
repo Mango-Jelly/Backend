@@ -1,7 +1,8 @@
-package com.mangojelly.backend.domain.Script;
+package com.mangojelly.backend.domain.script;
 
-import com.mangojelly.backend.domain.Role.Role;
-import com.mangojelly.backend.domain.Scene.Scene;
+import com.mangojelly.backend.domain.role.Role;
+import com.mangojelly.backend.domain.scene.Scene;
+import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Script {
+public class Script extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "script_id")

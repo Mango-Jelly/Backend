@@ -1,16 +1,15 @@
-package com.mangojelly.backend.domain.Room;
+package com.mangojelly.backend.domain.room;
 
-import com.mangojelly.backend.domain.Guest.Guest;
-import com.mangojelly.backend.domain.Member.Member;
-import com.mangojelly.backend.domain.Scene.Scene;
-import com.mangojelly.backend.domain.SceneMovie.SceneMovie;
-import com.mangojelly.backend.domain.Script.Script;
+import com.mangojelly.backend.domain.guest.Guest;
+import com.mangojelly.backend.domain.member.Member;
+import com.mangojelly.backend.domain.sceneMovie.SceneMovie;
+import com.mangojelly.backend.domain.script.Script;
+import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Room {
+public class Room extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

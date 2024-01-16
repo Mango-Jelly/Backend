@@ -1,7 +1,8 @@
-package com.mangojelly.backend.domain.Guest;
+package com.mangojelly.backend.domain.guest;
 
-import com.mangojelly.backend.domain.Role.Role;
-import com.mangojelly.backend.domain.Room.Room;
+import com.mangojelly.backend.domain.role.Role;
+import com.mangojelly.backend.domain.room.Room;
+import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Guest {
+public class Guest extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "guest_id")

@@ -1,7 +1,8 @@
-package com.mangojelly.backend.domain.Movie;
+package com.mangojelly.backend.domain.movie;
 
-import com.mangojelly.backend.domain.Member.Member;
-import com.mangojelly.backend.domain.Script.Script;
+import com.mangojelly.backend.domain.member.Member;
+import com.mangojelly.backend.domain.script.Script;
+import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Movie {
+public class Movie extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movie_id")

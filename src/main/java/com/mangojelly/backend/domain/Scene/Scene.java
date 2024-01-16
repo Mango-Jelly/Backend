@@ -1,6 +1,7 @@
-package com.mangojelly.backend.domain.Scene;
+package com.mangojelly.backend.domain.scene;
 
-import com.mangojelly.backend.domain.Script.Script;
+import com.mangojelly.backend.domain.script.Script;
+import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Scene {
+public class Scene extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "scene_id")

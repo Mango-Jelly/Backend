@@ -1,21 +1,17 @@
-package com.mangojelly.backend.domain.Role;
+package com.mangojelly.backend.domain.role;
 
-import com.mangojelly.backend.domain.Guest.Guest;
-import com.mangojelly.backend.domain.Room.Room;
-import com.mangojelly.backend.domain.Script.Script;
+import com.mangojelly.backend.domain.script.Script;
+import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Role {
+public class Role extends BaseEntity {
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
