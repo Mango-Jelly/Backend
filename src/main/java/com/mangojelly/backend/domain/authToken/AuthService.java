@@ -1,7 +1,6 @@
-package com.mangojelly.backend.global.security.service;
+package com.mangojelly.backend.domain.authToken;
 
-import com.mangojelly.backend.global.security.domain.AuthToken;
-import com.mangojelly.backend.global.security.domain.AuthTokenRepository;
+import com.mangojelly.backend.applicatoin.dto.response.LoginResponse;
 import com.mangojelly.backend.global.security.dto.request.LoginRequest;
 import com.mangojelly.backend.global.security.dto.response.TokenResponse;
 import com.mangojelly.backend.global.security.support.TokenProvider;
@@ -18,8 +17,8 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    public TokenResponse login(LoginRequest request) {
-        UsernamePasswordAuthenticationToken authentication = request.toAuthentication();
+    public TokenResponse login(String email) {
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, "");
         Authentication authenticate =
                 authenticationManagerBuilder.getObject().authenticate(authentication);
 

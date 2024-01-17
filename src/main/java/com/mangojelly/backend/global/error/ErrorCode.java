@@ -18,7 +18,7 @@ public enum ErrorCode {
     ERROR_CLIENT_BY_JWT_NOT_SUPPORT(401, "AUTH_04", "지원하지 않는 토큰입니다."),
     ERROR_CLIENT_BY_JWT_KEY_INVALID(401, "AUTH_05", "잘못된 토큰입니다."),
     ERROR_CLIENT_BY_AUTH_PERMISSION_TO_ACCESS_THE_REQUEST_ROLE(403, "AUTH_06", "해당 기능에 대한 권한이 없습니다."),
-    ERROR_CLIENT_BY_AUTHENTICATED_MUST_BE_VALID(401, "AUTH_07", "사용자 인증이 필요합니다."),
+    ERROR_CLIENT_BY_AUTHORIZATION_IS_NECESSARY(401, "AUTH_07", "사용자 인증이 필요합니다."),
     ;
     private final int status;
     private final String code;

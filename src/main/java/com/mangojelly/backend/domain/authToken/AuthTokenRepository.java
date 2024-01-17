@@ -1,4 +1,4 @@
-package com.mangojelly.backend.global.security.domain;
+package com.mangojelly.backend.domain.authToken;
 
 import org.springframework.data.repository.CrudRepository;
 
