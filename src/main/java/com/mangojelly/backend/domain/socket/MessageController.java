@@ -17,7 +17,6 @@ public class MessageController {
 
     @MessageMapping("/room/{channelId}")
     public void message(Message message, @DestinationVariable("channelId") String channelId){
-        log.debug("channelId:{}", channelId);
         simpMessageSendingOperations.convertAndSend("/sub/channel/" + channelId, message);
     }
 
