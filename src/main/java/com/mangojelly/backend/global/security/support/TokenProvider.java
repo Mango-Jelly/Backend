@@ -1,8 +1,8 @@
 package com.mangojelly.backend.global.security.support;
 
 import com.mangojelly.backend.global.error.ErrorCode;
+import com.mangojelly.backend.global.error.exception.BusinessException;
 import com.mangojelly.backend.global.security.dto.response.TokenResponse;
-import com.mangojelly.backend.global.security.exception.AuthException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -71,7 +71,7 @@ public class TokenProvider {
         Claims claims = paresClaims(accessToken);
 
         if (claims.get(AUTHORITIES_KEY) == null) {
-            throw new AuthException(ErrorCode.ERROR_CLIENT_BY_AUTHORIZATION_INFORMATION);
+            throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_AUTHORIZATION_INFORMATION);
         }
 
         List<SimpleGrantedAuthority> authorities =
@@ -89,13 +89,13 @@ public class TokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            throw new AuthException(ErrorCode.ERROR_CLIENT_BY_JWT_SIGNATURE_INVALID);
+            throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_JWT_SIGNATURE_INVALID);
         } catch (ExpiredJwtException e) {
-            throw new AuthException(ErrorCode.ERROR_CLINET_BY_JWT_KEY_EXPIERD);
+            throw BusinessException.of(ErrorCode.ERROR_CLINET_BY_JWT_KEY_EXPIERD);
         } catch (UnsupportedJwtException e) {
-            throw new AuthException(ErrorCode.ERROR_CLIENT_BY_JWT_NOT_SUPPORT);
+            throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_JWT_NOT_SUPPORT);
         } catch (IllegalArgumentException e) {
-            throw new AuthException(ErrorCode.ERROR_CLIENT_BY_JWT_KEY_INVALID);
+            throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_JWT_KEY_INVALID);
         }
     }
 

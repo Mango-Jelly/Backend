@@ -1,7 +1,7 @@
 package com.mangojelly.backend.global.security.support;
 
 import com.mangojelly.backend.global.error.ErrorCode;
-import com.mangojelly.backend.global.security.exception.AuthException;
+import com.mangojelly.backend.global.error.exception.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +27,6 @@ public class AuthenticationEntryPoint implements org.springframework.security.we
                 request,
                 response,
                 null,
-                new AuthException(ErrorCode.ERROR_CLIENT_BY_AUTHORIZATION_IS_NECESSARY));
+                BusinessException.of(ErrorCode.ERROR_CLIENT_BY_AUTHORIZATION_IS_NECESSARY));
     }
 }

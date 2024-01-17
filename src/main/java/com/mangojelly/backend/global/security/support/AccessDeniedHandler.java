@@ -1,7 +1,7 @@
 package com.mangojelly.backend.global.security.support;
 
 import com.mangojelly.backend.global.error.ErrorCode;
-import com.mangojelly.backend.global.security.exception.AuthException;
+import com.mangojelly.backend.global.error.exception.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +27,7 @@ public class AccessDeniedHandler implements org.springframework.security.web.acc
                 request,
                 response,
                 null,
-                new AuthException(
+                BusinessException.of(
                         ErrorCode.ERROR_CLIENT_BY_AUTH_PERMISSION_TO_ACCESS_THE_REQUEST_ROLE));
     }
 }

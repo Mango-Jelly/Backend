@@ -1,6 +1,6 @@
 package com.mangojelly.backend.global.security.support;
 
-import com.mangojelly.backend.global.security.exception.AuthException;
+import com.mangojelly.backend.global.error.exception.BusinessException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             filterChain.doFilter(request, response);
-        } catch (AuthException e) {
+        } catch (BusinessException e) {
             response.setStatus(e.getErrorCode().getStatus());
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=UTF-8");
