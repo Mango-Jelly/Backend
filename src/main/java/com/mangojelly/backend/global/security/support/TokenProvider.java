@@ -2,7 +2,6 @@ package com.mangojelly.backend.global.security.support;
 
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
-import com.mangojelly.backend.global.security.dto.response.TokenResponse;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -60,10 +59,8 @@ public class TokenProvider {
                         .compact();
 
         return TokenResponse.builder()
-                .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .accessTokenExpiresIn(new Date(now + ACCESS_TOKEN_EXPIRE_TIME).getTime())
                 .build();
     }
 
