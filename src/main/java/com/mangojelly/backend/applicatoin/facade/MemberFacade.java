@@ -7,12 +7,14 @@ import com.mangojelly.backend.domain.member.MemberService;
 import com.mangojelly.backend.global.security.support.TokenProvider;
 import com.mangojelly.backend.global.security.support.TokenResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
@@ -39,11 +41,11 @@ public class MemberFacade {
     @Transactional
     public TokenResponse login(LoginRequest request) {
         UsernamePasswordAuthenticationToken authenticationToken = request.toAuthentication();
-
+        log.info(authenticationToken.toString());
         Authentication authenticate = authenticationManagerBuilder
                 .getObject()
                 .authenticate(authenticationToken);
-
+        log.info(authenticate.toString());
         TokenResponse response = tokenProvider.generateTokenResponse(authenticate);
 
         authTokenService.save(Integer.parseInt(authenticate.getName()),response.refreshToken());

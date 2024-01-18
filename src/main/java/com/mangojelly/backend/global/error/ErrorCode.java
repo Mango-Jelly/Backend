@@ -11,7 +11,7 @@ public enum ErrorCode {
     API_ERROR_INPUT_INVALID_VALUE(409, "G002", "잘못된 입력"),
 
     API_ERROR_MEMBER_ALREADY_EXISTED(400,"M001","이미 등록되어있는 계정입니다."),
-
+    API_ERROR_MEMBER_NOT_EXIST(400,"M002","존재하지 않는 회원입니다."),
     //AUTH
     ERROR_CLIENT_BY_AUTHORIZATION_INFORMATION(400, "AUTH001", "권한 정보가 없는 토큰입니다."),
     ERROR_CLIENT_BY_JWT_SIGNATURE_INVALID(401, "AUTH002", "잘못된 서명입니다."),

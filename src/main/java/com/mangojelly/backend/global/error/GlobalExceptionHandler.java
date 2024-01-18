@@ -1,7 +1,6 @@
 package com.mangojelly.backend.global.error;
 
 import com.mangojelly.backend.global.error.exception.BusinessException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import static com.mangojelly.backend.global.error.ErrorCode.API_ERROR_INPUT_INVALID_VALUE;
 
-@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -21,7 +19,6 @@ public class GlobalExceptionHandler {
                         .errorMessage(errorCode.getMessage())
                         .businessCode(errorCode.getCode())
                         .build();
-        log.warn(e.getMessage());
         return ResponseEntity.status(errorCode.getStatus()).body(response);
     }
 
@@ -30,7 +27,6 @@ public class GlobalExceptionHandler {
             MethodArgumentNotValidException e) {
         final ErrorResponse response =
                 ErrorResponse.of(API_ERROR_INPUT_INVALID_VALUE, e.getBindingResult());
-        log.warn(e.getMessage());
         return ResponseEntity.status(API_ERROR_INPUT_INVALID_VALUE.getStatus()).body(response);
     }
 }
