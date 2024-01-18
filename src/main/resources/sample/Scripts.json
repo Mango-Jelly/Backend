@@ -1,0 +1,37 @@
+{
+  "scripts" : [
+    {
+      "title" : "scriptTitle1",
+      "roles" : ["role1","role2"],
+      "scenes" : [
+        {
+          "title" : "sceneTitle1",
+          "seq" : 1,
+          "scenario" : [
+            "role1 : 대사1",
+            "role2 : 대사2",
+            "role1 : 대사3",
+            "role1 : 대사4",
+            "role2 : 대사5",
+            "role1 : 대사6",
+            "role2 : 대사7",
+            "role1 : 대사8"
+          ]
+        },
+        {
+          "title" : "sceneTitle2",
+          "seq" : 2,
+          "scenario" : [
+            "role1 : 대사9",
+            "role2 : 대사10",
+            "role1 : 대사11",
+            "role2 : 대사12",
+            "role1 : 대사13",
+            "role2 : 대사14",
+            "role1 : 대사15"
+          ]
+        }
+      ]
+    }
+  ]
+}
