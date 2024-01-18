@@ -14,15 +14,15 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final RoomMapper roomMapper;
 
-    private void validateDuplicateBy(Member member){
+    public boolean validateDuplicateBy(Member member){
         if (roomRepository.existsByMember(member)) {
             throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_EXISTED);
         }
+        return true;
     }
 
     @Transactional
     public Room save(String title, String dpt, Member member){
-        validateDuplicateBy(member);
         return roomRepository.save(roomMapper.toEntity(title, dpt, member));
     }
 
