@@ -27,6 +27,12 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String role;
+
     @OneToMany(mappedBy = "member")
     private final List<Movie> movieList = new ArrayList<>();
 
@@ -34,8 +40,10 @@ public class Member extends BaseEntity {
     private Room room;
 
     @Builder
-    public Member(String email,String nickname){
+    public Member(String email, String password, String nickname){
         this.email = email;
+        this.password = password;
         this.nickname = nickname;
+        this.role = "ROLE_MEMBER";
     }
 }

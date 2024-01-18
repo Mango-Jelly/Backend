@@ -7,7 +7,7 @@ build/
 
 ### MAC ###
 .DS_Store
-**/security/**
+**/security/**.yml
 
 ### STS ###
 .apt_generated
