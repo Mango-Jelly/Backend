@@ -1,4 +1,4 @@
-package com.mangojelly.backend.global.security.annotation;
+package com.mangojelly.backend.global.common;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

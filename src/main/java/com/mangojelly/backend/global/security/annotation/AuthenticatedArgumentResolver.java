@@ -1,5 +1,6 @@
 package com.mangojelly.backend.global.security.annotation;
 
+import com.mangojelly.backend.global.common.Authenticated;
 import com.mangojelly.backend.global.security.support.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
