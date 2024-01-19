@@ -28,7 +28,6 @@ class S3FileUploaderTest {
             assertDoesNotThrow(()->{
 
                 PutObjectResult result = fileUploader.uploadFile("sample/image/sample/role/role1.png","sample/image/sample/role");
-                result.;
             });
         }
 
