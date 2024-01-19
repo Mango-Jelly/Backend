@@ -46,7 +46,8 @@ public class RoomFacade {
      * @param address
      */
     @Transactional
-    public void deleteRoom(UUID address){
-        roomService.deleteRoomByMember(address);
+    public void deleteRoom(int memberId, UUID address){
+        Member member = memberService.findById(memberId);
+        roomService.deleteRoomByMember(address, member);
     }
 }

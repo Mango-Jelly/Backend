@@ -7,7 +7,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface RoomRepository extends JpaRepository<Room,Integer> {
-    Optional<Integer> deleteByAddress(UUID address);
+    Integer deleteByAddress(UUID address);
     boolean existsByMember(Member member);
+    Optional<Room> findByAddress(UUID address);
+    boolean existsByMemberAndAddress(Member member, UUID address);
     Optional<Room> findByMember(Member member);
 }
