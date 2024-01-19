@@ -24,7 +24,8 @@ public enum ErrorCode {
     //ROOM
     ERROR_CLIENT_BY_ROOM_ALREADY_EXISTED(400, "R001", "이미 생성한 방이 존재하는 회원입니다."),
     ERROR_CLIENT_BY_ROOM_ALREADY_DELETED(400, "R002", "이미 삭제된 방입니다."),
-    ERROR_CLIENT_BY_ROOM_IS_NOT_YOURS(403, "R003", "생성된 방의 회원과 정보가 일치하지 않습니다.")
+    ERROR_CLIENT_BY_ROOM_NOT_EXISTED(400, "R003", "생성된 방이 존재하지 않습니다."),
+    ERROR_CLIENT_BY_ROOM_IS_NOT_YOURS(403, "R004", "생성된 방의 회원과 정보가 일치하지 않습니다.")
 
     ;
     private final int status;

@@ -4,6 +4,7 @@ import com.mangojelly.backend.applicatoin.dto.request.RoomCreateRequest;
 import com.mangojelly.backend.applicatoin.facade.RoomFacade;
 import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.global.common.Authenticated;
+import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.response.api.ApiResponse;
 import com.mangojelly.backend.global.response.api.ResponseCode;
 import lombok.RequiredArgsConstructor;
@@ -33,10 +34,10 @@ public class RoomController {
         return ResponseEntity.ok(new ApiResponse<Void>(ResponseCode.API_SUCCESS_MEMBER_LOGIN));
     }
 
-    @PostMapping("/check")
-    public ResponseEntity<ApiResponse<Void>> availableCreateRoom(@Authenticated int memberId){
-        roomFacade.existRoomByMember(memberId);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MEMBER_CHECK));
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<UUID>> availableCreateRoom(@Authenticated int memberId){
+        Room room = roomFacade.existRoomByMember(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MEMBER_CHECK, room.getAddress()));
     }
 
     @PostMapping("/create")

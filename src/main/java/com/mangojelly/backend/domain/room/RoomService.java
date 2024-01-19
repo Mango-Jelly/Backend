@@ -14,11 +14,8 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final RoomMapper roomMapper;
 
-    public boolean validateDuplicateBy(Member member){
-        if (roomRepository.existsByMember(member)) {
-            throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_EXISTED);
-        }
-        return true;
+    public Room validateDuplicateBy(Member member){
+        return roomRepository.findByMember(member).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_NOT_EXISTED));
     }
 
     @Transactional

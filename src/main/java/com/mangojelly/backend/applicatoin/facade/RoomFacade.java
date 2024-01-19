@@ -21,9 +21,9 @@ public class RoomFacade {
     /**
      *  방 생성 여부 체크
      * @param memberId
-     * @return 해당 회원의 방 생성 여부 boolean
+     * @return 해당 회원의 방 정보
      */
-    public boolean existRoomByMember(int memberId) {
+    public Room existRoomByMember(int memberId) {
         Member member = memberService.findById(memberId);
         return roomService.validateDuplicateBy(member);
     }
