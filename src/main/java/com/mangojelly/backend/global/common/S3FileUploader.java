@@ -5,11 +5,13 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class S3FileUploader {
@@ -19,11 +21,13 @@ public class S3FileUploader {
 
     public String uploadFile(String filePath, String path) {
         try{
+            log.info(filePath);
             ClassPathResource resource = new ClassPathResource(filePath);
             String key = path+"/"+resource.getFilename();
             amazonS3Client.putObject(bucket,key,resource.getFile());
             return getUrl(key);
         }catch (Exception e){
+            log.error(e.toString());
             throw BusinessException.of(ErrorCode.API_ERROR_INTERNAL_SERVER);
         }
     }

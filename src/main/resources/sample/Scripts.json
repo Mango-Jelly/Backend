@@ -1,11 +1,11 @@
 {
   "scripts" : [
     {
-      "title" : "scriptTitle1",
+      "title" : "sample",
       "roles" : ["role1","role2"],
       "scenes" : [
         {
-          "title" : "sceneTitle1",
+          "title" : "sampleScene1",
           "seq" : 1,
           "scenario" : [
             "role1 : 대사1",
@@ -19,7 +19,7 @@
           ]
         },
         {
-          "title" : "sceneTitle2",
+          "title" : "sampleScene2",
           "seq" : 2,
           "scenario" : [
             "role1 : 대사9",
