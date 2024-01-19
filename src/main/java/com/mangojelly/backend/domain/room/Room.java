@@ -50,10 +50,11 @@ public class Room extends BaseEntity {
     private final List<SceneMovie> sceneMovieList = new ArrayList<>();
 
     @Builder
-    public Room(Member member, Script script, String title, String dpt){
+    public Room(Member member, Script script, String title, String dpt, UUID address){
         this.member = member;
         this.script = script;
         this.title = title;
+        this.address = address;
         this.dpt = dpt;
     }
 }

@@ -7,10 +7,11 @@ import java.util.UUID;
 
 @Component
 public class RoomMapper {
-    Room toEntity(String title, String dpt, Member member){
+    Room toEntity(String title, String dpt, Member member, UUID address){
         return Room.builder()
                 .title(title)
                 .dpt(dpt)
+                .address(address)
                 .member(member)
                 .build();
     }

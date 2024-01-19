@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class RoomService {
@@ -20,7 +22,7 @@ public class RoomService {
 
     @Transactional
     public Room save(String title, String dpt, Member member){
-        return roomRepository.save(roomMapper.toEntity(title, dpt, member));
+        return roomRepository.save(roomMapper.toEntity(title, dpt, member, UUID.randomUUID()));
     }
 
     public Room deleteRoomByMember(Member member) {
