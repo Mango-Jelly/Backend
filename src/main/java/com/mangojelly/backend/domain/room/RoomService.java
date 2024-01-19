@@ -25,12 +25,8 @@ public class RoomService {
         return roomRepository.save(roomMapper.toEntity(title, dpt, member, UUID.randomUUID()));
     }
 
-    public Room deleteRoomByMember(Member member) {
-        return roomRepository.deleteByMember(member).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
-    }
-
-    public Room findRoomUUID(Member member){
-        return roomRepository.findByMember(member).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
+    public void deleteRoomByMember(UUID address) {
+        roomRepository.deleteByAddress(address).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
     }
 
 }

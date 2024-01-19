@@ -46,9 +46,9 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_ROOM_CREATE, room.getAddress()));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<ApiResponse<Void>> deleteRoom(@Authenticated int memberId){
-        roomFacade.deleteRoom(memberId);
+    @DeleteMapping("/{address}")
+    public ResponseEntity<ApiResponse<Void>> deleteRoom(@PathVariable(name = "address") UUID address){
+        roomFacade.deleteRoom(address);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_ROOM_DELETE));
     }
 }

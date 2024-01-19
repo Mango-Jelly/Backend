@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -41,11 +43,10 @@ public class RoomFacade {
 
     /**
      * 방 삭제 메서드
-     * @param memberId
+     * @param address
      */
     @Transactional
-    public void deleteRoom(int memberId){
-        Member member = memberService.findById(memberId);
-        roomService.deleteRoomByMember(member);
+    public void deleteRoom(UUID address){
+        roomService.deleteRoomByMember(address);
     }
 }
