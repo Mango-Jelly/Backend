@@ -2,7 +2,6 @@ package com.mangojelly.backend.global.common;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -18,25 +17,32 @@ public class S3FileUploader {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public PutObjectResult uploadFile(String filePath, String path) {
+    public String uploadFile(String filePath, String path) {
         try{
             ClassPathResource resource = new ClassPathResource(filePath);
-            return amazonS3Client.putObject(bucket,path+"/"+resource.getFilename(),resource.getFile());
+            String key = path+"/"+resource.getFilename();
+            amazonS3Client.putObject(bucket,key,resource.getFile());
+            return getUrl(key);
         }catch (Exception e){
             throw BusinessException.of(ErrorCode.API_ERROR_INTERNAL_SERVER);
         }
     }
 
-    public PutObjectResult uploadFile(MultipartFile file, String path){
+    public String uploadFile(MultipartFile file, String path){
         try{
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(file.getSize());
             metadata.setContentType(file.getContentType());
-
-            return amazonS3Client.putObject(bucket,path+file.getOriginalFilename(),file.getInputStream(),metadata);
+            String key = path+"/"+file.getOriginalFilename();
+            amazonS3Client.putObject(bucket,key,file.getInputStream(),metadata);
+            return getUrl(key);
         }catch (Exception e){
             throw BusinessException.of(ErrorCode.API_ERROR_INTERNAL_SERVER);
         }
+    }
+
+    private String getUrl(String key){
+        return amazonS3Client.getUrl(bucket,key).toString();
     }
 
 }

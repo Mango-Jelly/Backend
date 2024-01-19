@@ -1,6 +1,5 @@
 package com.mangojelly.backend.global.common;
 
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -26,8 +25,7 @@ class S3FileUploaderTest {
         @Test
         void whenSuccess() {
             assertDoesNotThrow(()->{
-
-                PutObjectResult result = fileUploader.uploadFile("sample/image/sample/role/role1.png","sample/image/sample/role");
+                System.out.println(fileUploader.uploadFile("sample/image/sample/role/role1.png","sample/image/sample/role"));
             });
         }
 
