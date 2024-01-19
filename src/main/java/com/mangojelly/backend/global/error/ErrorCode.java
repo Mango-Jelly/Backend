@@ -12,6 +12,7 @@ public enum ErrorCode {
 
     API_ERROR_MEMBER_ALREADY_EXISTED(400,"M001","이미 등록되어있는 계정입니다."),
     API_ERROR_MEMBER_NOT_EXIST(400,"M002","존재하지 않는 회원입니다."),
+
     //AUTH
     ERROR_CLIENT_BY_AUTHORIZATION_INFORMATION(400, "AUTH001", "권한 정보가 없는 토큰입니다."),
     ERROR_CLIENT_BY_JWT_SIGNATURE_INVALID(401, "AUTH002", "잘못된 서명입니다."),
@@ -20,8 +21,6 @@ public enum ErrorCode {
     ERROR_CLIENT_BY_JWT_KEY_INVALID(401, "AUTH005", "잘못된 토큰입니다."),
     ERROR_CLIENT_BY_AUTH_PERMISSION_TO_ACCESS_THE_REQUEST_ROLE(403, "AUTH006", "해당 기능에 대한 권한이 없습니다."),
     ERROR_CLIENT_BY_AUTHORIZATION_IS_NECESSARY(401, "AUTH007", "사용자 인증이 필요합니다."),
-
-
     ;
     private final int status;
     private final String code;
