@@ -26,7 +26,12 @@ public class RoomService {
         return roomRepository.save(roomMapper.toEntity(title, dpt, member));
     }
 
-    public Room deleteRoomByMember_Email(Member member) {
+    public Room deleteRoomByMember(Member member) {
         return roomRepository.deleteByMember(member).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
     }
+
+    public Room findRoomUUID(Member member){
+        return roomRepository.findByMember(member).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
+    }
+
 }
