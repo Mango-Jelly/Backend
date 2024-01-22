@@ -33,7 +33,7 @@ class S3FileUploaderTest {
         @Test
         void whenFailByNotExistFile() {
             assertThrows(BusinessException.class,()->{
-                fileUploader.uploadFile("sample/image/sample/role/sample.png","sample/image/sample/role");
+                fileUploader.uploadFile("sample/image/sample/role/thumbnail.png","sample/image/sample/role");
             });
         }
     }

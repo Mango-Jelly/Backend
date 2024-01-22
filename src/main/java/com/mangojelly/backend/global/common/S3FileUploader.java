@@ -21,11 +21,21 @@ public class S3FileUploader {
 
     public String uploadFile(String filePath, String path) {
         try{
-            log.info(filePath);
             ClassPathResource resource = new ClassPathResource(filePath);
             String key = path+"/"+resource.getFilename();
             amazonS3Client.putObject(bucket,key,resource.getFile());
             return getUrl(key);
+        }catch (Exception e){
+            log.error(e.toString());
+            throw BusinessException.of(ErrorCode.API_ERROR_INTERNAL_SERVER);
+        }
+    }
+
+    public String uploadFile(String path){
+        try{
+            ClassPathResource resource = new ClassPathResource(path);
+            amazonS3Client.putObject(bucket,path,resource.getFile());
+            return getUrl(path);
         }catch (Exception e){
             log.error(e.toString());
             throw BusinessException.of(ErrorCode.API_ERROR_INTERNAL_SERVER);

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mangojelly.backend.applicatoin.runner.vo.SceneVo;
 import com.mangojelly.backend.applicatoin.runner.vo.ScriptVo;
 import com.mangojelly.backend.applicatoin.runner.vo.ScriptWrapper;
+import com.mangojelly.backend.domain.role.RoleService;
 import com.mangojelly.backend.domain.scenario.Scenario;
 import com.mangojelly.backend.domain.scenario.ScenarioService;
 import com.mangojelly.backend.domain.scene.SceneService;
@@ -27,24 +28,38 @@ public class InitialFacade {
     private final SceneService sceneService;
     private final S3FileUploader s3FileUploader;
     private final ScenarioService scenarioService;
+    private final RoleService roleService;
+
     private static final String PATH = "sample/image";
 
     public void run() throws IOException {
         List<ScriptVo> scripts = loadScriptFile();
         for(ScriptVo scriptVo : scripts){
-            Script script = saveScript(scriptVo.title(),PATH+"/"+scriptVo.title()+".png");
-            for(SceneVo scene : scriptVo.scenes()){
-                String imageUrl = s3FileUploader.uploadFile(PATH+"/"+scriptVo.title()+"/scene/"+scene.title(),PATH+"/"+scriptVo.title()+"/scene/"+scene.title()+".png");
-                Scenario scenario =  scenarioService.save(script.getName()+"-"+scene.title(),scene.scenario());
-                sceneService.save(script,scene.seq(),scene.title(),scenario.getId(),imageUrl);
+            Script script = saveScript(scriptVo.title());
+            for(String roleName : scriptVo.roles()){
+                saveRole(script,roleName);
+            }
+            for(SceneVo sceneVo : scriptVo.scenes()){
+                saveScene(script, sceneVo);
             }
         }
     }
 
+    private void saveScene(Script script, SceneVo sceneVo){
+        String imageUrl = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/scene/"+sceneVo.title()+".png");
+        Scenario scenario =  scenarioService.save(script.getName()+"-"+sceneVo.title(),sceneVo.scenario());
+        sceneService.save(script,sceneVo.seq(),sceneVo.title(),scenario.getId(),imageUrl);
+    }
 
-    private Script saveScript(String title, String image){
-        String imageUrl = s3FileUploader.uploadFile(image,PATH+"/"+title);
-        return scriptService.save(title,imageUrl);
+    private void saveRole(Script script, String roleName){
+        String image = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/role/"+roleName+".png");
+        roleService.save(script,roleName,image);
+    }
+
+
+    private Script saveScript(String title){
+        String image = s3FileUploader.uploadFile(PATH+"/"+title+"/thumbnail.png");
+        return scriptService.save(title,image);
     }
 
 
