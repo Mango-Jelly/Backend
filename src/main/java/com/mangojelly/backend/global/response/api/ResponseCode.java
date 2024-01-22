@@ -15,7 +15,7 @@ public enum ResponseCode {
 
     //ROOM
     API_SUCCESS_ROOM_CREATE("R001", "방이 정상적으로 생성되었습니다."),
-    API_SUCCESS_ROOM_DELETE("R002", "방이 정상적으로 삭제되었습니다.")
+    API_SUCCESS_ROOM_DELETE("R002", "방이 정상적으로 삭제되었습니다."),
 
     //Script
     API_SUCCESS_SCRIPTS_GET("S001","모든 스크립트를 가져왔습니다"),

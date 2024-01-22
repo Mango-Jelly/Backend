@@ -15,9 +15,10 @@ public class ScriptService {
     private final ScriptMapper scriptMapper;
 
     @Transactional
-    public Script save(String title, String image){
-        return scriptRepository.save(scriptMapper.toEntity(title,image));
-    
+    public Script save(String title, String image) {
+        return scriptRepository.save(scriptMapper.toEntity(title, image));
+    }
+
     public List<Script> findAll() {
         return scriptRepository.findAll();
     }
