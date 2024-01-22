@@ -7,7 +7,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -16,7 +15,7 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final RoomMapper roomMapper;
 
-    public Room validateDuplicateBy(Member member){
+    public Room findByMember(Member member){
         return roomRepository.findByMember(member).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_NOT_EXISTED));
     }
 

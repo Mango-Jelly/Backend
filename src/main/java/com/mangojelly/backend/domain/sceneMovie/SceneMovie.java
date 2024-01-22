@@ -4,10 +4,7 @@ import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.scene.Scene;
 import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,6 +23,7 @@ public class SceneMovie extends BaseEntity {
     @JoinColumn(name = "scene_id",nullable = false)
     private Scene scene;
 
+    @Setter
     @Column(nullable = false)
     private String address;
 
