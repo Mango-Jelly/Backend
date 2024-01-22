@@ -2,5 +2,5 @@ package com.mangojelly.backend.domain.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RoleRepository extends JpaRepository<Role,Integer> {
+interface RoleRepository extends JpaRepository<Role,Integer> {
 }

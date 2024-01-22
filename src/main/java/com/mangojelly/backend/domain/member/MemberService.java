@@ -17,6 +17,7 @@ public class MemberService {
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
 
+    @Deprecated
     public Optional<Member> findByEmailWithOptional(String email){
         return memberRepository.findByEmail(email);
 }
@@ -35,5 +36,9 @@ public class MemberService {
 
     public Member findByEmail(String email){
         return memberRepository.findByEmail(email).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_MEMBER_NOT_EXIST));
+    }
+
+    public Member findById(int id){
+        return memberRepository.findById(id).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_MEMBER_NOT_EXIST));
     }
 }

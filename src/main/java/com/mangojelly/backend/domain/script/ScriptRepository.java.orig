@@ -1,0 +1,17 @@
+package com.mangojelly.backend.domain.script;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+<<<<<<< HEAD
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
+
+public interface ScriptRepository extends JpaRepository<Script,Integer> {
+    List<Script> findAll();
+
+    Optional<Script> findByScriptId(int scriptId);
+=======
+interface ScriptRepository extends JpaRepository<Script,Integer> {
+>>>>>>> a6bb98f7d26e9e18638ee66f25ca7076e45a6dc8
+}

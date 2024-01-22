@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ScriptMapper {
+<<<<<<< HEAD
     Script toEntity(String name, String image){
         return Script.builder()
                 .name(name)
@@ -12,3 +13,12 @@ public class ScriptMapper {
     }
 
 }
+=======
+    public Script toEntity(String title, String image){
+        return Script.builder()
+                .name(title)
+                .image(image)
+                .build();
+    }
+}
+>>>>>>> a6bb98f7d26e9e18638ee66f25ca7076e45a6dc8
