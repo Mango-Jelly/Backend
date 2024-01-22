@@ -21,6 +21,11 @@ public enum ErrorCode {
     ERROR_CLIENT_BY_AUTH_PERMISSION_TO_ACCESS_THE_REQUEST_ROLE(403, "AUTH006", "해당 기능에 대한 권한이 없습니다."),
     ERROR_CLIENT_BY_AUTHORIZATION_IS_NECESSARY(401, "AUTH007", "사용자 인증이 필요합니다."),
 
+    //ROOM
+    ERROR_CLIENT_BY_ROOM_ALREADY_EXISTED(400, "R001", "이미 생성한 방이 존재하는 회원입니다."),
+    ERROR_CLIENT_BY_ROOM_ALREADY_DELETED(400, "R002", "이미 삭제된 방입니다."),
+    ERROR_CLIENT_BY_ROOM_NOT_EXISTED(400, "R003", "생성된 방이 존재하지 않습니다."),
+    ERROR_CLIENT_BY_ROOM_IS_NOT_YOURS(403, "R004", "생성된 방의 회원과 정보가 일치하지 않습니다.")
 
     ;
     private final int status;
