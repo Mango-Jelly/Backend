@@ -1,5 +1,6 @@
 package com.mangojelly.backend.applicatoin.controller;
 
+import com.mangojelly.backend.applicatoin.dto.response.GetAllMovieResponse;
 import com.mangojelly.backend.applicatoin.facade.MovieFacade;
 import com.mangojelly.backend.domain.movie.Movie;
 import com.mangojelly.backend.global.response.api.ApiResponse;
@@ -22,9 +23,9 @@ public class MovieController {
     final private MovieFacade movieFacade;
 
     @GetMapping("/list")
-    public ResponseEntity<ApiResponse<List<Movie>>> getMovies(){
-        List<Movie> movies = movieFacade.getAllMovies();
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_GET, movies));
+    public ResponseEntity<ApiResponse<GetAllMovieResponse>> getMovies(){
+        GetAllMovieResponse response = movieFacade.getAllMovies();
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_GET, response));
     }
 
 }

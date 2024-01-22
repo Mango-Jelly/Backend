@@ -15,7 +15,7 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieMapper movieMapper;
 
-    public List<Movie> findMovies(){
+    public List<Movie> findAllMovies(){
         return movieRepository.findTop6ByVisibleIsTrueOrderByCreateAt();
     }
 }

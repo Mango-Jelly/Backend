@@ -1,5 +1,6 @@
 package com.mangojelly.backend.applicatoin.facade;
 
+import com.mangojelly.backend.applicatoin.dto.response.GetAllMovieResponse;
 import com.mangojelly.backend.domain.movie.Movie;
 import com.mangojelly.backend.domain.movie.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ public class MovieFacade {
     /**
      * 공개 연극 리스트 메소드
      */
-    public List<Movie> getAllMovies(){
-        return movieService.findMovies();
+    public GetAllMovieResponse getAllMovies(){
+        List<Movie> movies = movieService.findAllMovies();
+        return GetAllMovieResponse.of(movies);
     }
 }
