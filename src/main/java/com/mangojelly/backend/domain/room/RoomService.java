@@ -22,6 +22,8 @@ public class RoomService {
 
     @Transactional
     public Room save(String title, String dpt, Member member){
+        if (roomRepository.findByMember(member).orElse(null) != null)
+            throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_EXISTED);
         return roomRepository.save(roomMapper.toEntity(title, dpt, member, UUID.randomUUID()));
     }
 
