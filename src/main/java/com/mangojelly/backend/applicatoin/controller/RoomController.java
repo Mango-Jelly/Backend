@@ -23,17 +23,6 @@ import java.util.UUID;
 public class RoomController {
     private final RoomFacade roomFacade;
 
-    @GetMapping
-    public ResponseEntity<ApiResponse<Void>> test(@Authenticated int memberid){
-        System.out.println(memberid);
-        // member 정보를 다 가져오고
-        // 근데 없으면 터트리기
-        // 있으면 그제서야 room 생성해도 되는지 체크
-        // @Validate 해야 error catch 잡아줌
-
-        return ResponseEntity.ok(new ApiResponse<Void>(ResponseCode.API_SUCCESS_MEMBER_LOGIN));
-    }
-
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<UUID>> availableCreateRoom(@Authenticated int memberId){
         Room room = roomFacade.existRoomByMember(memberId);

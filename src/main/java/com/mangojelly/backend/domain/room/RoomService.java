@@ -26,8 +26,6 @@ public class RoomService {
     }
 
     public void deleteRoomByMember(UUID address, Member member) {
-        // 생성된 방이 있는지 확인 -> 없으면 이미 삭제된 방입니다.
-        // 방의 정보가 회원이랑 다를 때 삭제
         Room room = roomRepository.findByAddress(address).orElseThrow(()->BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
         if (room.getMember().getId() != member.getId())
             throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_IS_NOT_YOURS);
