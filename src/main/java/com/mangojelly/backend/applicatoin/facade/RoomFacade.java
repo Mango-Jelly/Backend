@@ -1,6 +1,7 @@
 package com.mangojelly.backend.applicatoin.facade;
 
 import com.mangojelly.backend.applicatoin.dto.request.RoomCreateRequest;
+import com.mangojelly.backend.applicatoin.dto.response.RoomCreateResponse;
 import com.mangojelly.backend.domain.member.Member;
 import com.mangojelly.backend.domain.member.MemberService;
 import com.mangojelly.backend.domain.room.Room;
@@ -25,9 +26,9 @@ public class RoomFacade {
      * @param memberId
      * @return 해당 회원의 방 정보
      */
-    public Room existRoomByMember(int memberId) {
+    public RoomCreateResponse existRoomByMember(int memberId) {
         Member member = memberService.findById(memberId);
-        return roomService.validateDuplicateBy(member);
+        return RoomCreateResponse.of(roomService.validateDuplicateBy(member).getAddress());
     }
 
     /**
@@ -36,9 +37,9 @@ public class RoomFacade {
      * @return 생성한 방 객체
      */
     @Transactional
-    public Room saveRoom(int memberId, RoomCreateRequest request){
+    public RoomCreateResponse saveRoom(int memberId, RoomCreateRequest request){
         Member member = memberService.findById(memberId);
-        return roomService.save(request.title(), request.department(), member);
+        return RoomCreateResponse.of(roomService.save(request.title(), request.department(), member).getAddress());
     }
 
     /**
