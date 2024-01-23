@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -21,5 +22,9 @@ public class ScriptService {
 
     public List<Script> findAll() {
         return scriptRepository.findAll();
+    }
+
+    public Script findById(int id){
+        return scriptRepository.findById(id).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_SCRIPT_NOT_EXIST));
     }
 }

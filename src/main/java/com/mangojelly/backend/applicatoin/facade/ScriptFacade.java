@@ -24,4 +24,8 @@ public class ScriptFacade {
         List<Script> scripts = scriptService.findAll();
         return GetAllScriptResponse.of(scripts);
     }
+
+    public Script getScript(int id){
+        return scriptService.findById(id);
+    }
 }

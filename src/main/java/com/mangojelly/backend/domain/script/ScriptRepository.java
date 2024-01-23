@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface ScriptRepository extends JpaRepository<Script,Integer> {
     List<Script> findAll();
 
-//    Optional<Script> findByScriptId(int scriptId);
+    Optional<Script> findById(int id);
 }

@@ -16,6 +16,9 @@ public enum ErrorCode {
     //SCENE
     API_ERROR_SCENE_NOT_EXIST(400,"S001","존재하지 않는 씬입니다."),
 
+    // SCRIPT
+    API_ERROR_SCRIPT_NOT_EXIST(400,"C001","존재하지 않는 스크립트입니다."),
+
     //AUTH
     ERROR_CLIENT_BY_AUTHORIZATION_INFORMATION(400, "AUTH001", "권한 정보가 없는 토큰입니다."),
     ERROR_CLIENT_BY_JWT_SIGNATURE_INVALID(401, "AUTH002", "잘못된 서명입니다."),
