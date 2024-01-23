@@ -10,14 +10,19 @@ public enum ErrorCode {
     API_ERROR_INTERNAL_SERVER(500, "G001", "서버 오류"),
     API_ERROR_INPUT_INVALID_VALUE(409, "G002", "잘못된 입력"),
 
+    //MEMBER
     API_ERROR_MEMBER_ALREADY_EXISTED(400,"M001","이미 등록되어있는 계정입니다."),
     API_ERROR_MEMBER_NOT_EXIST(400,"M002","존재하지 않는 회원입니다."),
 
     //SCENE
     API_ERROR_SCENE_NOT_EXIST(400,"S001","존재하지 않는 씬입니다."),
 
-    // SCRIPT
-    API_ERROR_SCRIPT_NOT_EXIST(400,"C001","존재하지 않는 스크립트입니다."),
+    //SCRIPT
+    API_ERROR_SCRIPT_NOT_EXIST(400,"SC001","존재하지 않는 스크립트입니다."),
+
+    //MOVIE
+    API_ERROR_MOVIE_NOT_EQUAL_SCRIPT(400,"MV001","선택한 스크립트와 맞지 않은 씬입니다."),
+
 
     //AUTH
     ERROR_CLIENT_BY_AUTHORIZATION_INFORMATION(400, "AUTH001", "권한 정보가 없는 토큰입니다."),
