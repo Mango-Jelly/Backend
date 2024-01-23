@@ -4,7 +4,6 @@ import com.mangojelly.backend.applicatoin.dto.request.RoomCreateRequest;
 import com.mangojelly.backend.applicatoin.dto.response.RoomCreateResponse;
 import com.mangojelly.backend.domain.member.Member;
 import com.mangojelly.backend.domain.member.MemberService;
-import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +27,7 @@ public class RoomFacade {
      */
     public RoomCreateResponse existRoomByMember(int memberId) {
         Member member = memberService.findById(memberId);
-        return RoomCreateResponse.of(roomService.validateDuplicateBy(member).getAddress());
+        return RoomCreateResponse.of(roomService.findByMember(member).getAddress());
     }
 
     /**

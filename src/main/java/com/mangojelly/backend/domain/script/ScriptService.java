@@ -22,4 +22,8 @@ public class ScriptService {
     public List<Script> findAll() {
         return scriptRepository.findAll();
     }
+
+    public Script findById(int id) {
+        return scriptRepository.findById(id).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_SCRIPT_NOT_EXIST));
+    }
 }
