@@ -1,9 +1,14 @@
 package com.mangojelly.backend.applicatoin.facade;
 
+import com.mangojelly.backend.applicatoin.dto.request.GuestRequest;
 import com.mangojelly.backend.applicatoin.dto.request.LoginRequest;
 import com.mangojelly.backend.applicatoin.dto.request.SignupRequest;
+import com.mangojelly.backend.applicatoin.dto.response.GuestCreateResponse;
 import com.mangojelly.backend.domain.authToken.AuthTokenService;
+import com.mangojelly.backend.domain.guest.GuestService;
 import com.mangojelly.backend.domain.member.MemberService;
+import com.mangojelly.backend.domain.room.Room;
+import com.mangojelly.backend.domain.room.RoomService;
 import com.mangojelly.backend.global.security.support.TokenProvider;
 import com.mangojelly.backend.global.security.support.TokenResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +28,9 @@ public class MemberFacade {
     private final AuthTokenService authTokenService;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final TokenProvider tokenProvider;
+    private final RoomService roomService;
+    private final GuestService guestService;
+
 
     /**
      * 멤버를 등록하는 메소드
@@ -50,5 +58,15 @@ public class MemberFacade {
 
         authTokenService.save(Integer.parseInt(authenticate.getName()),response.refreshToken());
         return response;
+    }
+
+    /**
+     * 게스트 생성 메서드
+     * @param request
+     * @return 게스트의 id
+     */
+    public GuestCreateResponse saveGuest(GuestRequest request){
+        Room room = roomService.findByAddress(request.address());
+        return GuestCreateResponse.of(guestService.save(request.nickName(), room).getId());
     }
 }

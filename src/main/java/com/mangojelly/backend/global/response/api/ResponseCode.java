@@ -12,6 +12,7 @@ public enum ResponseCode {
     API_SUCCESS_MEMBER_SAVE("M001","멤버를 정상적으로 등록했습니다."),
     API_SUCCESS_MEMBER_LOGIN("M002","정상적으로 로그인했습니다."),
     API_SUCCESS_MEMBER_CHECK("M003", "멤버가 정상적으로 조회되었습니다."),
+    API_SUCCESS_GUEST_CREATE("M004", "게스트가 정상적으로 등록했습니다."),
 
     //ROOM
     API_SUCCESS_ROOM_CREATE("R001", "방이 정상적으로 생성되었습니다."),

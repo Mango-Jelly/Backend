@@ -29,10 +29,10 @@ public class Guest extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    private String session;
+    private String session; // rtc 에서 나오는 정보
 
     @Builder
-    public Guest(String name, String session, Room room,Role role){
+    public Guest(String name, String session, Room room, Role role){
         this.name = name;
         this.session = session;
         this.role = role;

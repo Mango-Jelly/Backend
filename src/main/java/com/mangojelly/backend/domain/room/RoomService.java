@@ -33,4 +33,10 @@ public class RoomService {
         roomRepository.deleteByAddress(address);
     }
 
+    public Room findByAddress(UUID address){
+        return roomRepository
+        .findByAddress(address)
+        .orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_INPUT_INVALID_VALUE));
+    }
+
 }
