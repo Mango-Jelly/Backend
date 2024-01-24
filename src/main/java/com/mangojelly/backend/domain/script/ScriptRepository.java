@@ -7,7 +7,4 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ScriptRepository extends JpaRepository<Script,Integer> {
-    List<Script> findAll();
-
-    Optional<Script> findById(int id);
 }
