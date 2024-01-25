@@ -1,5 +1,6 @@
 package com.mangojelly.backend.domain.guest;
 
+import com.mangojelly.backend.domain.role.Role;
 import com.mangojelly.backend.domain.room.Room;
 import org.springframework.stereotype.Component;
 

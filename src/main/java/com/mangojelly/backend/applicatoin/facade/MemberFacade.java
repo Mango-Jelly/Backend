@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@Transactional(readOnly = false)
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class MemberFacade {
@@ -65,8 +65,20 @@ public class MemberFacade {
      * @param request
      * @return 게스트의 id
      */
+    @Transactional
     public GuestCreateResponse saveGuest(GuestRequest request){
         Room room = roomService.findByAddress(request.address());
         return GuestCreateResponse.of(guestService.save(request.nickName(), room).getId());
+    }
+
+    /**
+     * 게스트 세션 수정 메서드
+     * @param guest_id
+     * @param session
+     * @return
+     */
+    @Transactional
+    public GuestCreateResponse updateSessionGuest(int guest_id, String session){
+        return GuestCreateResponse.of(guestService.updateSession(guest_id, session).getId());
     }
 }

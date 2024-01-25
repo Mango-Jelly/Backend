@@ -13,6 +13,7 @@ public enum ErrorCode {
     //MEMBER
     API_ERROR_MEMBER_ALREADY_EXISTED(400,"M001","이미 등록되어있는 계정입니다."),
     API_ERROR_MEMBER_NOT_EXIST(400,"M002","존재하지 않는 회원입니다."),
+    API_ERROR_GUEST_NOT_EXIST(400,"M003","존재하지 않는 참여자입니다."),
 
     //SCENE
     API_ERROR_SCENE_NOT_EXIST(400,"S001","존재하지 않는 씬입니다."),

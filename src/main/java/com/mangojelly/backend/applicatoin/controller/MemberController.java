@@ -1,6 +1,7 @@
 package com.mangojelly.backend.applicatoin.controller;
 
 import com.mangojelly.backend.applicatoin.dto.request.GuestRequest;
+import com.mangojelly.backend.applicatoin.dto.request.GuestSessionRequest;
 import com.mangojelly.backend.applicatoin.dto.request.LoginRequest;
 import com.mangojelly.backend.applicatoin.dto.request.SignupRequest;
 import com.mangojelly.backend.applicatoin.dto.response.GuestCreateResponse;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,5 +43,11 @@ public class MemberController {
     public ResponseEntity<ApiResponse<GuestCreateResponse>> createGuest(@RequestBody @Validated GuestRequest request){
         GuestCreateResponse response = memberFacade.saveGuest(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_CREATE, response));
+    }
+
+    @PostMapping("/guest/session")
+    public ResponseEntity<ApiResponse<Void>> updateGuestSession(@RequestBody @Validated GuestSessionRequest request){
+        memberFacade.updateSessionGuest(request.id(), request.session());
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE));
     }
 }
