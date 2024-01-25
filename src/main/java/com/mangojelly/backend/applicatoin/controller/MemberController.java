@@ -40,6 +40,6 @@ public class MemberController {
     @PostMapping("/guest")
     public ResponseEntity<ApiResponse<GuestCreateResponse>> createGuest(@RequestBody @Validated GuestRequest request){
         GuestCreateResponse response = memberFacade.saveGuest(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_CREATE));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_CREATE, response));
     }
 }

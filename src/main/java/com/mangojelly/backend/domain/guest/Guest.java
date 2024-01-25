@@ -19,11 +19,11 @@ public class Guest extends BaseEntity {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id",nullable = false)
+    @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id",nullable = false)
+    @JoinColumn(name = "role_id")
     private Role role;
 
     @Column(nullable = false)
