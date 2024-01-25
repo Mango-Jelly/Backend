@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -22,10 +24,10 @@ public class GuestService {
     }
 
     @Transactional
-    public Guest updateSession(int id, String session){
+    public List<Guest> updateSession(int id, String session){
         Guest guest = findById(id);
         guest.setSession(session);
-        return guest;
+        return guestRepository.findAllByRoomId(guest.getRoom().getId());
     }
 
     @Transactional
@@ -44,4 +46,5 @@ public class GuestService {
         findById(id);
         guestRepository.deleteById(id);
     }
+
 }

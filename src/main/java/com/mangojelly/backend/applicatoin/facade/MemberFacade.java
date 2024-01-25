@@ -4,6 +4,7 @@ import com.mangojelly.backend.applicatoin.dto.request.GuestRequest;
 import com.mangojelly.backend.applicatoin.dto.request.LoginRequest;
 import com.mangojelly.backend.applicatoin.dto.request.SignupRequest;
 import com.mangojelly.backend.applicatoin.dto.response.GuestCreateResponse;
+import com.mangojelly.backend.applicatoin.dto.response.GetAllGuestResponse;
 import com.mangojelly.backend.domain.authToken.AuthTokenService;
 import com.mangojelly.backend.domain.guest.GuestService;
 import com.mangojelly.backend.domain.member.MemberService;
@@ -81,8 +82,8 @@ public class MemberFacade {
      * @return
      */
     @Transactional
-    public GuestCreateResponse updateSessionGuest(int guest_id, String session){
-        return GuestCreateResponse.of(guestService.updateSession(guest_id, session).getId());
+    public GetAllGuestResponse updateSessionGuest(int guest_id, String session){
+        return GetAllGuestResponse.of(guestService.updateSession(guest_id, session));
     }
 
     /**

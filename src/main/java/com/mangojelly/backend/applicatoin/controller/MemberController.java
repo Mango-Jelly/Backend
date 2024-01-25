@@ -1,6 +1,8 @@
 package com.mangojelly.backend.applicatoin.controller;
 
 import com.mangojelly.backend.applicatoin.dto.request.*;
+import com.mangojelly.backend.applicatoin.dto.response.GetAllGuestResponse;
+import com.mangojelly.backend.applicatoin.dto.response.GetAllMovieResponse;
 import com.mangojelly.backend.applicatoin.dto.response.GuestCreateResponse;
 import com.mangojelly.backend.applicatoin.facade.MemberFacade;
 import com.mangojelly.backend.global.response.api.ApiResponse;
@@ -40,9 +42,9 @@ public class MemberController {
     }
 
     @PostMapping("/guest/session")
-    public ResponseEntity<ApiResponse<Void>> updateGuestSession(@RequestBody @Validated GuestSessionRequest request){
-        memberFacade.updateSessionGuest(request.id(), request.session());
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE));
+    public ResponseEntity<ApiResponse<GetAllGuestResponse>> updateGuestSession(@RequestBody @Validated GuestSessionRequest request){
+        GetAllGuestResponse response = memberFacade.updateSessionGuest(request.id(), request.session());
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE, response));
     }
 
     @PostMapping("/guest/role")
