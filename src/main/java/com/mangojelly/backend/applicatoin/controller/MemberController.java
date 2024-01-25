@@ -41,16 +41,16 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_CREATE, response));
     }
 
-    @PostMapping("/guest/session")
+    @PutMapping("/guest/session")
     public ResponseEntity<ApiResponse<GetAllGuestResponse>> updateGuestSession(@RequestBody @Validated GuestSessionRequest request){
         GetAllGuestResponse response = memberFacade.updateSessionGuest(request.id(), request.session());
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE, response));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE, response));
     }
 
-    @PostMapping("/guest/role")
+    @PutMapping("/guest/role")
     public ResponseEntity<ApiResponse<Void>> updateGuestRole(@RequestBody @Validated GuestRoleRequest request){
         memberFacade.updateRoleGuest(request.id(), request.role());
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE));
     }
 
     @DeleteMapping("/guest/{guest_id}")
