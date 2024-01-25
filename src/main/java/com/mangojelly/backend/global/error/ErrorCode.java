@@ -13,6 +13,7 @@ public enum ErrorCode {
     //MEMBER
     API_ERROR_MEMBER_ALREADY_EXISTED(400,"M001","이미 등록되어있는 계정입니다."),
     API_ERROR_MEMBER_NOT_EXIST(400,"M002","존재하지 않는 회원입니다."),
+    API_ERROR_GUEST_NOT_EXIST(400,"M003","존재하지 않는 참여자입니다."),
 
     //SCENE
     API_ERROR_SCENE_NOT_EXIST(400,"S001","존재하지 않는 씬입니다."),
@@ -36,8 +37,10 @@ public enum ErrorCode {
     ERROR_CLIENT_BY_ROOM_ALREADY_EXISTED(400, "R001", "이미 생성한 방이 존재하는 회원입니다."),
     ERROR_CLIENT_BY_ROOM_ALREADY_DELETED(400, "R002", "이미 삭제된 방입니다."),
     ERROR_CLIENT_BY_ROOM_NOT_EXISTED(400, "R003", "생성된 방이 존재하지 않습니다."),
-    ERROR_CLIENT_BY_ROOM_IS_NOT_YOURS(403, "R004", "생성된 방의 회원과 정보가 일치하지 않습니다.")
+    ERROR_CLIENT_BY_ROOM_IS_NOT_YOURS(403, "R004", "생성된 방의 회원과 정보가 일치하지 않습니다."),
 
+    //ROLE
+    API_ERROR_ROLE_NOT_EXIST(403, "R004", "요청한 역할이 존재하지 않습니다.")
     ;
     private final int status;
     private final String code;
