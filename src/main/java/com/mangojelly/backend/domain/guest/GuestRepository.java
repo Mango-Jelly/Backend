@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface GuestRepository extends JpaRepository<Guest,Integer> {
     Optional<Guest> findById(int id);
+    Integer deleteById(int id);
 }
 

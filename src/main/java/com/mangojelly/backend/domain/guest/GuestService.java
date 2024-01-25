@@ -1,5 +1,6 @@
 package com.mangojelly.backend.domain.guest;
 
+import com.mangojelly.backend.domain.role.Role;
 import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomRepository;
 import com.mangojelly.backend.global.error.ErrorCode;
@@ -27,7 +28,20 @@ public class GuestService {
         return guest;
     }
 
+    @Transactional
+    public Guest updateRole(int id, Role role){
+        Guest guest = findById(id);
+        guest.setRole(role);
+        return guest;
+    }
+
     public Guest findById(int id){
         return guestRepository.findById(id).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_GUEST_NOT_EXIST));
+    }
+
+    @Transactional
+    public void deleteGuestById(int id){
+        findById(id);
+        guestRepository.deleteById(id);
     }
 }

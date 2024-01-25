@@ -7,6 +7,8 @@ import com.mangojelly.backend.applicatoin.dto.response.GuestCreateResponse;
 import com.mangojelly.backend.domain.authToken.AuthTokenService;
 import com.mangojelly.backend.domain.guest.GuestService;
 import com.mangojelly.backend.domain.member.MemberService;
+import com.mangojelly.backend.domain.role.Role;
+import com.mangojelly.backend.domain.role.RoleService;
 import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomService;
 import com.mangojelly.backend.global.security.support.TokenProvider;
@@ -30,6 +32,7 @@ public class MemberFacade {
     private final TokenProvider tokenProvider;
     private final RoomService roomService;
     private final GuestService guestService;
+    private final RoleService roleService;
 
 
     /**
@@ -80,5 +83,26 @@ public class MemberFacade {
     @Transactional
     public GuestCreateResponse updateSessionGuest(int guest_id, String session){
         return GuestCreateResponse.of(guestService.updateSession(guest_id, session).getId());
+    }
+
+    /**
+     * 게스트 역할 추가 메서드
+     * @param guest_id
+     * @param role_id
+     * @return
+     */
+    @Transactional
+    public GuestCreateResponse updateRoleGuest(int guest_id, int role_id){
+        Role role = roleService.findById(role_id);
+        return GuestCreateResponse.of(guestService.updateRole(guest_id, role).getId());
+    }
+
+    /**
+     * 게스트 삭제 메서드
+     * @param guest_id
+     */
+    @Transactional
+    public void deleteGuest(int guest_id){
+        guestService.deleteGuestById(guest_id);
     }
 }

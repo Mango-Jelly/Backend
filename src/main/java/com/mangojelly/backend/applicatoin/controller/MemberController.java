@@ -1,9 +1,6 @@
 package com.mangojelly.backend.applicatoin.controller;
 
-import com.mangojelly.backend.applicatoin.dto.request.GuestRequest;
-import com.mangojelly.backend.applicatoin.dto.request.GuestSessionRequest;
-import com.mangojelly.backend.applicatoin.dto.request.LoginRequest;
-import com.mangojelly.backend.applicatoin.dto.request.SignupRequest;
+import com.mangojelly.backend.applicatoin.dto.request.*;
 import com.mangojelly.backend.applicatoin.dto.response.GuestCreateResponse;
 import com.mangojelly.backend.applicatoin.facade.MemberFacade;
 import com.mangojelly.backend.global.response.api.ApiResponse;
@@ -15,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -50,4 +44,17 @@ public class MemberController {
         memberFacade.updateSessionGuest(request.id(), request.session());
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE));
     }
+
+    @PostMapping("/guest/role")
+    public ResponseEntity<ApiResponse<Void>> updateGuestRole(@RequestBody @Validated GuestRoleRequest request){
+        memberFacade.updateRoleGuest(request.id(), request.role());
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_UPDATE));
+    }
+
+    @DeleteMapping("/guest/{guest_id}")
+    public ResponseEntity<ApiResponse<Void>> deleteGuest(@PathVariable(name = "guest_id") int guest_id){
+        memberFacade.deleteGuest(guest_id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_GUEST_DELETE));
+    }
+
 }
