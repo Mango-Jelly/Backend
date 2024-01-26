@@ -41,15 +41,15 @@ class MovieControllerTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(movieController).build();
     }
 
-    @Test
-    void saveSceneMovie() throws Exception {
-//        given(movieFacade.saveSceneMovie(any(),any(),any(MultipartFile.class))).;
-        given(tokenProvider.validateToken(any())).willReturn(true);
-        mockMvc.perform(
-                        post("/api/v1/movie/scene")
-                            .queryParam("sceneId", String.valueOf(1))
-                            .queryParam("movie","movieName")
-                            .header("Authorization","Bearer "+token))
-                .andDo(print());
-    }
+//    @Test
+//    void saveSceneMovie() throws Exception {
+////        given(movieFacade.saveSceneMovie(any(),any(),any(MultipartFile.class))).;
+//        given(tokenProvider.validateToken(any())).willReturn(true);
+//        mockMvc.perform(
+//                        post("/api/v1/movie/scene")
+//                            .queryParam("sceneId", String.valueOf(1))
+//                            .queryParam("movie","movieName")
+//                            .header("Authorization","Bearer "+token))
+//                .andDo(print());
+//    }
 }

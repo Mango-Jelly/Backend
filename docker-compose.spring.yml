@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  webapp:
+    container_name: mangojelly_back
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/mango_jelly?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ssafy
+      SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_USERNAME: root
+      SPRING_DATA_MONGODB_PASSWORD: ssafy
+      SPRING_DATA_MONGODB_DATABASE: mango_jelly
+      SPRING_REDIS_HOST: localhost
+      SPRING_REDIS_PORT: 6379
+    networks:
+      - mango-jelly_mango-net
+      
+networks:
+  mango-jelly_mango-net:
+    driver: bridge
+    external: true

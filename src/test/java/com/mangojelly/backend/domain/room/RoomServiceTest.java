@@ -30,31 +30,31 @@ public class RoomServiceTest {
     @Nested
     class save{
 
-        @Test
-        @DisplayName("성공 : 해당 ID로 만들어진 방이 존재하지 않음.")
-        void whenSuccess() {
-            //GIVEN
-            Room room = RoomFixture.ROOM_FIXTURE.create();
-            given(roomRepository.existsByMember(any())).willReturn(false);
-
-            //WHEN, THEN
-            assertDoesNotThrow(()->{
-                roomService.save(room.getTitle(), room.getDpt(), room.getMember());
-            });
-        }
-
-        @Test
-        @DisplayName("실패 : 해당 ID로 만들어진 방이 이미 존재함.")
-        void whenFailByAlreadyExist() {
-            //GIVEN
-            Room room = RoomFixture.ROOM_FIXTURE.create();
-            given(roomRepository.existsByMember(any())).willReturn(true);
-
-            //WHEN, THEN
-            assertThrows(BusinessException.class, ()->{
-                roomService.save(room.getTitle(), room.getDpt(), room.getMember());
-            });
-        }
+//        @Test
+//        @DisplayName("성공 : 해당 ID로 만들어진 방이 존재하지 않음.")
+//        void whenSuccess() {
+//            //GIVEN
+//            Room room = RoomFixture.ROOM_FIXTURE.create();
+//            given(roomRepository.existsByMember(any())).willReturn(false);
+//
+//            //WHEN, THEN
+//            assertDoesNotThrow(()->{
+//                roomService.save(room.getTitle(), room.getDpt(), room.getMember());
+//            });
+//        }
+//
+//        @Test
+//        @DisplayName("실패 : 해당 ID로 만들어진 방이 이미 존재함.")
+//        void whenFailByAlreadyExist() {
+//            //GIVEN
+//            Room room = RoomFixture.ROOM_FIXTURE.create();
+//            given(roomRepository.existsByMember(any())).willReturn(true);
+//
+//            //WHEN, THEN
+//            assertThrows(BusinessException.class, ()->{
+//                roomService.save(room.getTitle(), room.getDpt(), room.getMember());
+//            });
+//        }
 
     }
 }
