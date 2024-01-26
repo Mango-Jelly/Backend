@@ -1,5 +1,3 @@
-#!/bin/sh
-/usr/bin/bash: line 1: wq: command not found
 #
 # Copyright © 2015-2021 the original authors.
 #
