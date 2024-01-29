@@ -24,10 +24,7 @@ public enum ResponseCode {
 
     //MOVIE
     API_SUCCESS_MOVIE_SCENE_CREATE("S001","씬 영상을 정상적으로 등록했습니다."),
-<<<<<<< HEAD
 
-=======
->>>>>>> c9c727099165f626e7afbce1508f648af17a5596
     API_SUCCESS_MOVIES_READ("V001","모든 연극을 호출했습니다."),
 
     //Script
