@@ -11,6 +11,7 @@ public class AuthTokenService {
     private final AuthTokenRepository authTokenRepository;
     private final AuthTokenMapper authTokenMapper;
 
+    @Transactional
     public AuthToken save(int memberId, String refreshToken) {
         return authTokenRepository.save(authTokenMapper.toEntity(memberId,refreshToken));
     }
