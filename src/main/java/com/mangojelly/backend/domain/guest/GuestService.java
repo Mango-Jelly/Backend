@@ -1,5 +1,6 @@
 package com.mangojelly.backend.domain.guest;
 
+import com.mangojelly.backend.applicatoin.dto.request.RoomBeginRequest;
 import com.mangojelly.backend.domain.role.Role;
 import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomRepository;
@@ -33,6 +34,12 @@ public class GuestService {
     @Transactional
     public Guest updateRole(int id, Role role){
         Guest guest = findById(id);
+        guest.setRole(role);
+        return guest;
+    }
+
+    @Transactional
+    public Guest updateRole(Guest guest, Role role){
         guest.setRole(role);
         return guest;
     }
