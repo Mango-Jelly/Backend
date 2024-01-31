@@ -3,12 +3,13 @@ package com.mangojelly.backend.domain.room;
 import com.mangojelly.backend.domain.member.Member;
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class RoomService {
@@ -21,11 +22,12 @@ public class RoomService {
 
     @Transactional
     public Room save(String title, String dpt, Member member){
-        if (roomRepository.findByMember(member).orElse(null) != null)
+        if (roomRepository.findByMember(member).isPresent())
             throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_EXISTED);
         return roomRepository.save(roomMapper.toEntity(title, dpt, member, UUID.randomUUID()));
     }
 
+    @Transactional
     public void deleteRoomByMember(UUID address, Member member) {
         Room room = roomRepository.findByAddress(address).orElseThrow(()->BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
         if (room.getMember().getId() != member.getId())
@@ -34,9 +36,7 @@ public class RoomService {
     }
 
     public Room findByAddress(UUID address){
-        return roomRepository
-        .findByAddress(address)
-        .orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_INPUT_INVALID_VALUE));
+        return roomRepository.findByAddress(address).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_INPUT_INVALID_VALUE));
     }
 
 }

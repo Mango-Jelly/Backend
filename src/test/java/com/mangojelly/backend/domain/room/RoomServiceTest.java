@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
@@ -35,7 +37,7 @@ public class RoomServiceTest {
         void whenSuccess() {
             //GIVEN
             Room room = RoomFixture.ROOM_FIXTURE.create();
-            given(roomRepository.existsByMember(any())).willReturn(false);
+            given(roomRepository.findByMember(any())).willReturn(Optional.empty());
 
             //WHEN, THEN
             assertDoesNotThrow(()->{
@@ -48,7 +50,7 @@ public class RoomServiceTest {
         void whenFailByAlreadyExist() {
             //GIVEN
             Room room = RoomFixture.ROOM_FIXTURE.create();
-            given(roomRepository.existsByMember(any())).willReturn(true);
+            given(roomRepository.findByMember(any())).willReturn(Optional.of(room));
 
             //WHEN, THEN
             assertThrows(BusinessException.class, ()->{

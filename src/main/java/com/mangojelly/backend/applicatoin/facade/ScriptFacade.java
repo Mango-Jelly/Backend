@@ -20,8 +20,12 @@ public class ScriptFacade {
     /**
      * 스크립트 리스트 메소드
      */
-    public GetAllScriptResponse getAllScripts(){
+    public GetAllScriptResponse getAllScripts() {
         List<Script> scripts = scriptService.findAll();
         return GetAllScriptResponse.of(scripts);
+    }
+
+    public Script getScript(int id) {
+        return scriptService.findById(id);
     }
 }

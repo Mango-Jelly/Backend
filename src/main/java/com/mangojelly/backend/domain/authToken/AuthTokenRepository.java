@@ -1,6 +1,6 @@
 package com.mangojelly.backend.domain.authToken;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-interface AuthTokenRepository extends CrudRepository<AuthToken, Integer> {
+interface AuthTokenRepository extends MongoRepository<AuthToken, Integer> {
 }

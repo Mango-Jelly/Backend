@@ -24,6 +24,7 @@ public enum ErrorCode {
     //MOVIE
     API_ERROR_MOVIE_NOT_EQUAL_SCRIPT(400,"MV001","선택한 스크립트와 맞지 않은 씬입니다."),
 
+
     //AUTH
     ERROR_CLIENT_BY_AUTHORIZATION_INFORMATION(400, "AUTH001", "권한 정보가 없는 토큰입니다."),
     ERROR_CLIENT_BY_JWT_SIGNATURE_INVALID(401, "AUTH002", "잘못된 서명입니다."),

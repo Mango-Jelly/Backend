@@ -29,7 +29,7 @@ public class MovieController {
     @GetMapping("/list")
     public ResponseEntity<ApiResponse<GetAllMovieResponse>> getMovies(){
         GetAllMovieResponse response = movieFacade.getAllMovies();
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_GET, response));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_READ, response));
     }
 
 

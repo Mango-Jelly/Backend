@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+docker-compose.spring.yml
+
+
 ### MAC ###
 .DS_Store
 **/security/**.yml
