@@ -45,7 +45,7 @@ public class RoomController {
 
     @PostMapping("/begin/{address}")
     public ResponseEntity<ApiResponse<Void>> beginMovie(@Authenticated int memberId, @PathVariable(name = "address") UUID address, @RequestBody @Validated RoomBeginRequest request){
-        roomFacade.beginMovie(memberId, request.guests(), request.script_id(), address);
+        roomFacade.beginMovie(memberId, request.guests(), request.scriptId(), address);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_ROOM_BEGIN));
     }
 }

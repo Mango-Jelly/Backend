@@ -7,29 +7,29 @@ import org.springframework.security.core.parameters.P;
 import java.util.ArrayList;
 import java.util.List;
 
-public record RoomBeginRequest (@NotNull List<Players> guests, @NotNull int script_id){
+public record RoomBeginRequest (@NotNull List<Players> guests, @NotNull int scriptId){
 
-    public RoomBeginRequest(List<Players> guests, int script_id){
+    public RoomBeginRequest(List<Players> guests, int scriptId){
         this.guests = guests;
-        this.script_id = script_id;
+        this.scriptId = scriptId;
     }
 
-    public static RoomBeginRequest of(List<Players> guests, int script_id){
+    public static RoomBeginRequest of(List<Players> guests, int scriptId){
         List<Players> response = new ArrayList<>();
         for(Players p: guests){
             response.add(Players.from(p));
         }
-        return new RoomBeginRequest(response, script_id);
+        return new RoomBeginRequest(response, scriptId);
     }
-    public record Players(@NotNull int guest_id, Integer role_id) {
+    public record Players(@NotNull int guestId, Integer roleId) {
 
-        public Players(int guest_id, Integer role_id){
-            this.guest_id = guest_id;
-            this.role_id = role_id;
+        public Players(int guestId, Integer roleId){
+            this.guestId = guestId;
+            this.roleId = roleId;
         }
 
         public static Players from(Players p){
-            return new Players(p.guest_id, p.role_id);
+            return new Players(p.guestId, p.roleId);
         }
     }
 }

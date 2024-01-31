@@ -67,18 +67,18 @@ public class RoomFacade {
      * 연극 시작하기 메서드
      * @param memberId
      * @param guests
-     * @param script_id
+     * @param scriptId
      */
     @Transactional
-    public void beginMovie(int memberId, List<RoomBeginRequest.Players> guests, int script_id, UUID address){
+    public void beginMovie(int memberId, List<RoomBeginRequest.Players> guests, int scriptId, UUID address){
         Member member = memberService.findById(memberId);
         Room room = roomService.checkRoomBegin(member, address);
-        Script script = scriptService.findById(script_id);
+        Script script = scriptService.findById(scriptId);
 
         roomService.updateScript(room, script);
         for(RoomBeginRequest.Players guest : guests){
-            Guest guest_ = guestService.findById(guest.guest_id());
-            Role role = roleService.findById(guest.role_id());
+            Guest guest_ = guestService.findById(guest.guestId());
+            Role role = roleService.findById(guest.roleId());
             guestService.updateRole(guest_, role);
         }
     }
