@@ -1,12 +1,15 @@
 package com.mangojelly.backend.domain.room;
 
+import com.mangojelly.backend.applicatoin.dto.request.RoomBeginRequest;
 import com.mangojelly.backend.domain.member.Member;
+import com.mangojelly.backend.domain.script.Script;
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Transactional(readOnly = true)
@@ -37,6 +40,17 @@ public class RoomService {
 
     public Room findByAddress(UUID address){
         return roomRepository.findByAddress(address).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_INPUT_INVALID_VALUE));
+    }
+
+    public Room checkRoomBegin(Member member, UUID address){
+        findByMember(member);
+        return roomRepository.findByMemberAndAddress(member, address).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_NO_AUTHORIZATION));
+    }
+
+    @Transactional
+    public Room updateScript(Room room, Script script){
+        room.setScript(script);
+        return room;
     }
 
 }
