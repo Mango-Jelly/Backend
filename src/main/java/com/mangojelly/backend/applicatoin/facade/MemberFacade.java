@@ -58,8 +58,12 @@ public class MemberFacade {
                 .getObject()
                 .authenticate(authenticationToken);
         log.info(authenticate.toString());
-        TokenResponse response = tokenProvider.generateTokenResponse(authenticate);
-
+        String[] tokens = tokenProvider.generateTokenResponse(authenticate);
+        TokenResponse response = TokenResponse.builder()
+                .accessToken(tokens[0])
+                .refreshToken(tokens[1])
+                .nickName(memberService.findById(Integer.parseInt(authenticate.getName())).getNickname())
+                .build();
         authTokenService.save(Integer.parseInt(authenticate.getName()),response.refreshToken());
         return response;
     }
