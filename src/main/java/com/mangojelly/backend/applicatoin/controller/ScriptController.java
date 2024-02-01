@@ -24,12 +24,12 @@ public class ScriptController {
     @GetMapping("/list")
     public ResponseEntity<ApiResponse<GetAllScriptResponse>> getScripts() {
         GetAllScriptResponse response = scriptFacade.getAllScripts();
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_SCRIPTS_READ, response));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_SCRIPTS_GET, response));
     }
 
     @GetMapping("/")
     public ResponseEntity<ApiResponse<Script>> getScriptById(@RequestParam(value="scriptId") int scriptId){
         Script script = scriptFacade.getScript(scriptId);
-        return ResponseEntity.ok(new ApiResponse<>(ResponseCode.API_SUCCESS_ONESCRIPT_READ, script));
+        return ResponseEntity.ok(new ApiResponse<>(ResponseCode.API_SUCCESS_ONESCRIPT_GET, script));
     }
 }

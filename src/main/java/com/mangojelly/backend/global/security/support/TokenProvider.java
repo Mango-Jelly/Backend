@@ -25,6 +25,7 @@ public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 60 * 60;
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24 * 7;
+
     private final Key key;
 
     public TokenProvider(@Value("${JWT.SECRET_KEY}") String secretKey) {
@@ -32,7 +33,7 @@ public class TokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String[] generateTokenResponse(Authentication auth) {
+    public TokenResponse generateTokenResponse(Authentication auth) {
         String authorities =
                 auth.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
@@ -56,10 +57,10 @@ public class TokenProvider {
                         .signWith(key, SignatureAlgorithm.HS512)
                         .compact();
 
-        String[] tokens = new String[2];
-        tokens[0] = accessToken;
-        tokens[1] = refreshToken;
-        return tokens;
+        return TokenResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     public Authentication getAuthentication(String accessToken) {

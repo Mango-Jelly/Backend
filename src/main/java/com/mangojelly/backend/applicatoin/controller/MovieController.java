@@ -1,6 +1,7 @@
 package com.mangojelly.backend.applicatoin.controller;
 
 import com.mangojelly.backend.applicatoin.dto.response.GetAllMovieResponse;
+import com.mangojelly.backend.applicatoin.dto.response.GetOneMovieResponse;
 import com.mangojelly.backend.applicatoin.facade.MovieFacade;
 import com.mangojelly.backend.global.common.Authenticated;
 import com.mangojelly.backend.global.response.api.ApiResponse;
@@ -29,7 +30,20 @@ public class MovieController {
     @GetMapping("/list")
     public ResponseEntity<ApiResponse<GetAllMovieResponse>> getMovies(){
         GetAllMovieResponse response = movieFacade.getAllMovies();
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_READ, response));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_GET, response));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<GetAllMovieResponse>> getMyMovies(@Authenticated int memberId) {
+        GetAllMovieResponse response = movieFacade.getAllMyMovies(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_GET, response));
+    }
+
+    @GetMapping("/{movie_id}")
+    public ResponseEntity<ApiResponse<Void>> getMoive(@Authenticated(required = false) int member_id, @PathVariable(name = "movie_id") int movie_id){
+        GetOneMovieResponse response = movieFacade.getOneMovie(movie_id, movie_id);
+        // member_id null 검사 해줘야함.
+        return ResponseEntity.ok(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIE_SCENE_CREATE));
     }
 
 
