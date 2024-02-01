@@ -79,7 +79,7 @@ public class RoomFacade {
         for(RoomBeginRequest.Players guest : guests){
             Guest guest_ = guestService.findById(guest.guestId());
             if (guest.roleId() != null) {
-                Role role = roleService.findById(guest.roleId());
+                Role role = roleService.findById(guest.roleId(), script);
                 guestService.updateRole(guest_, role);
             }
         }
