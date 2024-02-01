@@ -21,6 +21,9 @@ public class RoleService {
 
     public Role findById(int id){
         return roleRepository.findById(id).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_ROLE_NOT_EXIST));
+    }
 
+    public Role findById(int id, Script script){
+        return roleRepository.findByIdAndScript(id, script).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_ROLE_NOT_EXIST));
     }
 }

@@ -6,10 +6,7 @@ import com.mangojelly.backend.domain.sceneMovie.SceneMovie;
 import com.mangojelly.backend.domain.script.Script;
 import com.mangojelly.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +39,10 @@ public class Room extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "script_id")
+    @Setter
     private Script script;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)

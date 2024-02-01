@@ -1,5 +1,6 @@
 package com.mangojelly.backend.applicatoin.controller;
 
+import com.mangojelly.backend.applicatoin.dto.request.RoomBeginRequest;
 import com.mangojelly.backend.applicatoin.dto.request.RoomCreateRequest;
 import com.mangojelly.backend.applicatoin.dto.response.RoomCreateResponse;
 import com.mangojelly.backend.applicatoin.facade.RoomFacade;
@@ -41,8 +42,10 @@ public class RoomController {
         roomFacade.deleteRoom(memberId, address);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_ROOM_DELETE));
     }
-}
 
-//reponse class
-// 오류 처리
-// notion update
+    @PostMapping("/begin/{address}")
+    public ResponseEntity<ApiResponse<Void>> beginMovie(@Authenticated int memberId, @PathVariable(name = "address") UUID address, @RequestBody @Validated RoomBeginRequest request){
+        roomFacade.beginMovie(memberId, request.guests(), request.scriptId(), address);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(ResponseCode.API_SUCCESS_ROOM_BEGIN));
+    }
+}
