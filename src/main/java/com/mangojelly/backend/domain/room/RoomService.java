@@ -42,6 +42,12 @@ public class RoomService {
         return roomRepository.findByAddress(address).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_INPUT_INVALID_VALUE));
     }
 
+    /**
+     * 연극 시작 가능 여부 확인 함수
+     * @param member
+     * @param address
+     * @return
+     */
     public Room checkRoomBegin(Member member, UUID address){
         findByMember(member);
         return roomRepository.findByMemberAndAddress(member, address).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_NO_AUTHORIZATION));

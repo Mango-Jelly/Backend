@@ -20,7 +20,7 @@ public class MemberService {
     @Deprecated
     public Optional<Member> findByEmailWithOptional(String email){
         return memberRepository.findByEmail(email);
-}
+    }
 
     private void validateDuplicateBy(String email) {
         if (memberRepository.existsByEmail(email)) {
