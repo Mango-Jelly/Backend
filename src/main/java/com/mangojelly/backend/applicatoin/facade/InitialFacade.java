@@ -35,9 +35,10 @@ public class InitialFacade {
     public void run() throws IOException {
         List<ScriptVo> scripts = loadScriptFile();
         for(ScriptVo scriptVo : scripts){
+            System.out.println(scriptVo);
             Script script = saveScript(scriptVo.title());
-            for(String roleName : scriptVo.roles()){
-                saveRole(script,roleName);
+            for(int i = 0; i < scriptVo.roles().size();i++){
+                saveRole(script,scriptVo.roles().get(i),i+1);
             }
             for(SceneVo sceneVo : scriptVo.scenes()){
                 saveScene(script, sceneVo);
@@ -46,13 +47,13 @@ public class InitialFacade {
     }
 
     private void saveScene(Script script, SceneVo sceneVo){
-        String imageUrl = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/scene/"+sceneVo.title()+".png");
+        String imageUrl = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/scene/"+sceneVo.seq()+".png");
         Scenario scenario =  scenarioService.save(script.getName()+"-"+sceneVo.title(),sceneVo.scenario());
         sceneService.save(script,sceneVo.seq(),sceneVo.title(),scenario.getId(),imageUrl);
     }
 
-    private void saveRole(Script script, String roleName){
-        String image = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/role/"+roleName+".png");
+    private void saveRole(Script script, String roleName,int idx){
+        String image = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/role/"+idx+".PNG");
         roleService.save(script,roleName,image);
     }
 
