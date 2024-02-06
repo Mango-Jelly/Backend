@@ -9,6 +9,7 @@ public enum ErrorCode {
     // Global
     API_ERROR_INTERNAL_SERVER(500, "G001", "서버 오류"),
     API_ERROR_INPUT_INVALID_VALUE(409, "G002", "잘못된 입력"),
+    API_ERROR_NO_AUTHORIZATION(403, "G002", "권한 없음"),
 
     //MEMBER
     API_ERROR_MEMBER_ALREADY_EXISTED(400,"M001","이미 등록되어있는 계정입니다."),

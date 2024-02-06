@@ -16,11 +16,10 @@ public enum ResponseCode {
     API_SUCCESS_GUEST_UPDATE("M005", "게스트 정보를 정상적으로 수정했습니다."),
     API_SUCCESS_GUEST_DELETE("M006", "게스트 정보를 정상적으로 삭제했습니다."),
 
-
     //ROOM
     API_SUCCESS_ROOM_CREATE("R001", "방이 정상적으로 생성되었습니다."),
     API_SUCCESS_ROOM_DELETE("R002", "방이 정상적으로 삭제되었습니다."),
-
+    API_SUCCESS_ROOM_BEGIN("R003", "연극이 정상적으로 시작되었습니다."),
     //MOVIE
     API_SUCCESS_MOVIE_SCENE_CREATE("S001","씬 영상을 정상적으로 등록했습니다."),
     API_SUCCESS_MOVIES_GET("V001","모든 연극을 호출했습니다."),

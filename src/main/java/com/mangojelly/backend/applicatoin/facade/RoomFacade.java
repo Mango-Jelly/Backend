@@ -1,15 +1,24 @@
 package com.mangojelly.backend.applicatoin.facade;
 
+import com.mangojelly.backend.applicatoin.dto.request.RoomBeginRequest;
 import com.mangojelly.backend.applicatoin.dto.request.RoomCreateRequest;
 import com.mangojelly.backend.applicatoin.dto.response.RoomCreateResponse;
+import com.mangojelly.backend.domain.guest.Guest;
+import com.mangojelly.backend.domain.guest.GuestService;
 import com.mangojelly.backend.domain.member.Member;
 import com.mangojelly.backend.domain.member.MemberService;
+import com.mangojelly.backend.domain.role.Role;
+import com.mangojelly.backend.domain.role.RoleService;
+import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomService;
+import com.mangojelly.backend.domain.script.Script;
+import com.mangojelly.backend.domain.script.ScriptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -19,6 +28,9 @@ import java.util.UUID;
 public class RoomFacade {
     private final RoomService roomService;
     private final MemberService memberService;
+    private final ScriptService scriptService;
+    private final GuestService guestService;
+    private final RoleService roleService;
 
     /**
      *  방 생성 여부 체크
@@ -55,5 +67,25 @@ public class RoomFacade {
     public void saveMovie(int memberId, UUID roomUUID){
         Member member = memberService.findById(memberId);
         roomService.saveMovie(member, roomUUID);
+    /**
+     * 연극 시작하기 메서드
+     * @param memberId
+     * @param guests
+     * @param scriptId
+     */
+    @Transactional
+    public void beginMovie(int memberId, List<RoomBeginRequest.Players> guests, int scriptId, UUID address){
+        Member member = memberService.findById(memberId);
+        Room room = roomService.checkRoomBegin(member, address);
+        Script script = scriptService.findById(scriptId);
+
+        roomService.updateScript(room, script);
+        for(RoomBeginRequest.Players guest : guests){
+            Guest guest_ = guestService.findById(guest.guestId());
+            if (guest.roleId() != null) {
+                Role role = roleService.findById(guest.roleId(), script);
+                guestService.updateRole(guest_, role);
+            }
+        }
     }
 }

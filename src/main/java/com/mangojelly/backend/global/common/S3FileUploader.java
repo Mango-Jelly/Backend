@@ -34,10 +34,8 @@ public class S3FileUploader {
     public String uploadFile(String path){
         try{
             ClassPathResource resource = new ClassPathResource(path);
-
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(resource.contentLength());
-//            metadata.setContentType(resource.);
             amazonS3Client.putObject(bucket,path,resource.getInputStream(),metadata);
             return getUrl(path);
         }catch (Exception e){

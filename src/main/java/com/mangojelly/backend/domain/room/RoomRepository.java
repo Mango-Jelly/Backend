@@ -12,4 +12,5 @@ public interface RoomRepository extends JpaRepository<Room,Integer> {
     Optional<Room> findByAddress(UUID address);
     boolean existsByMemberAndAddress(Member member, UUID address);
     Optional<Room> findByMember(Member member);
+    Optional<Room> findByMemberAndAddress(Member member, UUID address);
 }

@@ -25,7 +25,7 @@ class S3FileUploaderTest {
         @Test
         void whenSuccess() {
             assertDoesNotThrow(()->{
-                System.out.println(fileUploader.uploadFile("sample/image/sample/role/role1.png","sample/image/sample/role"));
+                System.out.println(fileUploader.uploadFile("sample/image/sample/role/1.png","sample/image/sample/role"));
             });
         }
 

@@ -16,7 +16,7 @@ public class SceneMovie extends BaseEntity {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_id")
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -6,6 +6,9 @@ import com.mangojelly.backend.domain.member.Member;
 import com.mangojelly.backend.domain.movie.MovieMapper;
 import com.mangojelly.backend.domain.movie.MovieRepository;
 import com.mangojelly.backend.global.common.PythonRunComponent;
+import com.mangojelly.backend.applicatoin.dto.request.RoomBeginRequest;
+import com.mangojelly.backend.domain.member.Member;
+import com.mangojelly.backend.domain.script.Script;
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -100,4 +103,21 @@ public class RoomService {
 
         movieRepository.save(movieMapper.toEntity(member, room.getScript(), roomUUID.toString(), movieTitle, party, room.getDpt(), room.isVisible()));
     }
+    /**
+     * 연극 시작 가능 여부 확인 함수
+     * @param member
+     * @param address
+     * @return
+     */
+    public Room checkRoomBegin(Member member, UUID address){
+        findByMember(member);
+        return roomRepository.findByMemberAndAddress(member, address).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_NO_AUTHORIZATION));
+    }
+
+    @Transactional
+    public Room updateScript(Room room, Script script){
+        room.setScript(script);
+        return room;
+    }
+
 }
