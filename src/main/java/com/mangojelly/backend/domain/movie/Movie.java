@@ -38,6 +38,7 @@ public class Movie extends BaseEntity {
     @Column(nullable = false)
     private String dpt;
 
+    @Column
     private boolean visible;
 
     @Builder

@@ -35,6 +35,9 @@ public class Room extends BaseEntity {
     @Column(nullable = false)
     private String dpt;
 
+    @Column(nullable = false)
+    private boolean visible;
+
     @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
     private final List<Guest> guestList = new ArrayList<>();
 
@@ -50,11 +53,12 @@ public class Room extends BaseEntity {
     private final List<SceneMovie> sceneMovieList = new ArrayList<>();
 
     @Builder
-    public Room(Member member, Script script, String title, String dpt, UUID address){
+    public Room(Member member, Script script, String title, String dpt, boolean visible,UUID address){
         this.member = member;
         this.script = script;
         this.title = title;
         this.address = address;
         this.dpt = dpt;
+        this.visible = visible;
     }
 }

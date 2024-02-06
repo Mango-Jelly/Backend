@@ -1,7 +1,7 @@
 package com.mangojelly.backend.applicatoin.controller;
 
 import com.mangojelly.backend.applicatoin.dto.response.GetAllMovieResponse;
-import com.mangojelly.backend.applicatoin.dto.response.GetOneMovieResponse;
+import com.mangojelly.backend.applicatoin.dto.response.MovieDetailResponse;
 import com.mangojelly.backend.applicatoin.facade.MovieFacade;
 import com.mangojelly.backend.global.common.Authenticated;
 import com.mangojelly.backend.global.response.api.ApiResponse;
@@ -40,11 +40,8 @@ public class MovieController {
     }
 
     @GetMapping("/{movie_id}")
-    public ResponseEntity<ApiResponse<Void>> getMoive(@Authenticated(required = false) int member_id, @PathVariable(name = "movie_id") int movie_id){
-        GetOneMovieResponse response = movieFacade.getOneMovie(movie_id, movie_id);
-        // member_id null 검사 해줘야함.
-        return ResponseEntity.ok(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIE_SCENE_CREATE));
+    public ResponseEntity<ApiResponse<MovieDetailResponse>> getMoive(@Authenticated(required = false) int member_id, @PathVariable(name = "movie_id") int movie_id){
+        MovieDetailResponse response = movieFacade.getOneMovie(member_id, movie_id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIE_GET, response));
     }
-
-
 }

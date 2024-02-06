@@ -41,6 +41,12 @@ public class RoomController {
         roomFacade.deleteRoom(memberId, address);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_ROOM_DELETE));
     }
+
+    @PostMapping("/movie/{roomUUID}")
+    public ResponseEntity<ApiResponse<Void>> saveMovie(@Authenticated int memberId, @PathVariable(name = "roomUUID") UUID roomUUID){
+        roomFacade.saveMovie(memberId, roomUUID);
+        return ResponseEntity.ok(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIE_CREATE));
+    }
 }
 
 //reponse class

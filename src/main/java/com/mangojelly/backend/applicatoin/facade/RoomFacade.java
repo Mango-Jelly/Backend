@@ -38,7 +38,7 @@ public class RoomFacade {
     @Transactional
     public RoomCreateResponse saveRoom(int memberId, RoomCreateRequest request){
         Member member = memberService.findById(memberId);
-        return RoomCreateResponse.of(roomService.save(request.title(), request.department(), member).getAddress());
+        return RoomCreateResponse.of(roomService.save(request.title(), request.department(), member, request.visible()).getAddress());
     }
 
     /**
@@ -49,5 +49,11 @@ public class RoomFacade {
     public void deleteRoom(int memberId, UUID address){
         Member member = memberService.findById(memberId);
         roomService.deleteRoomByMember(address, member);
+    }
+
+    @Transactional
+    public void saveMovie(int memberId, UUID roomUUID){
+        Member member = memberService.findById(memberId);
+        roomService.saveMovie(member, roomUUID);
     }
 }

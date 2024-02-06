@@ -16,10 +16,6 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieMapper movieMapper;
 
-//    @Transactional
-//    public Movie save(Movie movie){
-//
-//    }
     public List<Movie> findAllMovies() {
         return movieRepository.findTop6ByVisibleIsTrueOrderByCreateAt();
     }
@@ -29,6 +25,8 @@ public class MovieService {
     }
 
     public Movie findOneMovie(int memberId, int movieId) {
+        if(movieRepository.findById(movieId).get().getMember().getId() != memberId)
+            throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_NOT_EXIST);
         return movieRepository.findMovie(memberId, movieId);
     }
 }

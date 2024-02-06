@@ -1,7 +1,7 @@
 package com.mangojelly.backend.applicatoin.facade;
 
 import com.mangojelly.backend.applicatoin.dto.response.GetAllMovieResponse;
-import com.mangojelly.backend.applicatoin.dto.response.GetOneMovieResponse;
+import com.mangojelly.backend.applicatoin.dto.response.MovieDetailResponse;
 import com.mangojelly.backend.domain.member.Member;
 import com.mangojelly.backend.domain.member.MemberService;
 import com.mangojelly.backend.domain.movie.Movie;
@@ -58,8 +58,9 @@ public class MovieFacade {
         return GetAllMovieResponse.of(movies);
     }
 
-    public GetOneMovieResponse getOneMovie(int memberId, int movieId){
+    @Transactional
+    public MovieDetailResponse getOneMovie(int memberId, int movieId){
         Movie movie = movieService.findOneMovie(memberId, movieId);
-        return GetOneMovieResponse.of(movie);
+        return MovieDetailResponse.of(movie);
     }
 }
