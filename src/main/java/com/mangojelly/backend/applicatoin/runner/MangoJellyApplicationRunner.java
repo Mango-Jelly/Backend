@@ -15,7 +15,6 @@ import java.io.IOException;
 public class MangoJellyApplicationRunner implements ApplicationRunner {
     private final InitialFacade initialFacade;
 
-
     @Override
     public void run(ApplicationArguments args) throws IOException {
         initialFacade.run();

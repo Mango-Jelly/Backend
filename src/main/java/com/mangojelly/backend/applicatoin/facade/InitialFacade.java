@@ -85,7 +85,7 @@ public class InitialFacade {
     }
 
     private void saveRole(Script script, String roleName,int idx){
-        String image = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/role/"+idx+".PNG");
+        String image = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/role/"+idx+".png");
         roleService.save(script,roleName,image);
     }
 
