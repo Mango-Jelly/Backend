@@ -29,4 +29,8 @@ public class MovieService {
             throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_NOT_EXIST);
         return movieRepository.findMovie(memberId, movieId);
     }
+    @Transactional
+    public Movie save(Member member, Script script, boolean visible, String address, String dpt, String party, String title){
+        return movieRepository.save(movieMapper.toEntity(member, script, address, title, party, dpt, visible));
+    }
 }

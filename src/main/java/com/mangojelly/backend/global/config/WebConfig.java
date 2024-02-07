@@ -3,8 +3,10 @@ package com.mangojelly.backend.global.config;
 import com.mangojelly.backend.global.security.annotation.AuthenticatedArgumentResolver;
 import com.mangojelly.backend.global.security.support.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -16,5 +18,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new AuthenticatedArgumentResolver(tokenProvider));
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
     }
 }

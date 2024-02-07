@@ -44,6 +44,11 @@ public class RoomService {
     }
 
     @Transactional
+    public Room save(String title, String dpt, Member member, UUID address){
+        return roomRepository.save(roomMapper.toEntity(title, dpt, member, address));
+    }
+
+    @Transactional
     public void deleteRoomByMember(UUID address, Member member) {
         Room room = roomRepository.findByAddress(address).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
         if (room.getMember().getId() != member.getId())

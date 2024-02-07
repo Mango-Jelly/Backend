@@ -38,7 +38,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(AbstractHttpConfigurer::disable)
             .headers(configurer ->
-                    configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                    configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/v1/**").permitAll()
                 .anyRequest().permitAll())
