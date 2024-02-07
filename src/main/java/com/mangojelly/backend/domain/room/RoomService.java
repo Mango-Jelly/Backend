@@ -44,8 +44,8 @@ public class RoomService {
     }
 
     @Transactional
-    public Room save(String title, String dpt, Member member, UUID address){
-        return roomRepository.save(roomMapper.toEntity(title, dpt, member, address));
+    public Room save(String title, String dpt, Member member, boolean visible, UUID address) {
+        return roomRepository.save(roomMapper.toEntity(title, dpt, member, address, visible));
     }
 
     @Transactional

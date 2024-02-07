@@ -63,15 +63,15 @@ public class InitialFacade {
         String movieAddress = "https://mongo-jelly.s3.ap-northeast-2.amazonaws.com/frontSampleVideo.mp4";
 
         saveMovie(member, script, true,  movieAddress, dpt, party, title);
-        saveRoom(title, dpt, member, UUID.fromString("d0ea544a-2a97-4975-af8c-82d4901627b4"));
+        saveRoom(title, dpt, member ,UUID.fromString("d0ea544a-2a97-4975-af8c-82d4901627b4"), true);
     }
 
     private void saveMovie(Member member, Script script, boolean visible, String address, String dpt, String party, String title){
         movieService.save(member, script, visible, address, dpt, party, title);
     }
 
-    private void saveRoom(String title, String dpt, Member member, UUID address){
-        roomService.save(title, dpt, member, address);
+    private void saveRoom(String title, String dpt, Member member, UUID address, boolean visible){
+        roomService.save(title, dpt, member, visible, address);
     }
 
     private void saveMember(String email, String password, String nickname){
