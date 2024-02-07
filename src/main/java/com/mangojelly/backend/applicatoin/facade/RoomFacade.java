@@ -33,7 +33,8 @@ public class RoomFacade {
     private final RoleService roleService;
 
     /**
-     *  방 생성 여부 체크
+     * 방 생성 여부 체크
+     *
      * @param memberId
      * @return 해당 회원의 방 정보
      */
@@ -43,44 +44,49 @@ public class RoomFacade {
     }
 
     /**
-     *  방 생성 메서드
+     * 방 생성 메서드
+     *
      * @param memberId, request
      * @return 생성한 방 객체
      */
     @Transactional
-    public RoomCreateResponse saveRoom(int memberId, RoomCreateRequest request){
+    public RoomCreateResponse saveRoom(int memberId, RoomCreateRequest request) {
         Member member = memberService.findById(memberId);
         return RoomCreateResponse.of(roomService.save(request.title(), request.department(), member, request.visible()).getAddress());
     }
 
     /**
      * 방 삭제 메서드
+     *
      * @param address
      */
     @Transactional
-    public void deleteRoom(int memberId, UUID address){
+    public void deleteRoom(int memberId, UUID address) {
         Member member = memberService.findById(memberId);
         roomService.deleteRoomByMember(address, member);
     }
 
     @Transactional
-    public void saveMovie(int memberId, UUID roomUUID){
+    public void saveMovie(int memberId, UUID roomUUID) {
         Member member = memberService.findById(memberId);
         roomService.saveMovie(member, roomUUID);
+    }
+
     /**
      * 연극 시작하기 메서드
+     *
      * @param memberId
      * @param guests
      * @param scriptId
      */
     @Transactional
-    public void beginMovie(int memberId, List<RoomBeginRequest.Players> guests, int scriptId, UUID address){
+    public void beginMovie(int memberId, List<RoomBeginRequest.Players> guests, int scriptId, UUID address) {
         Member member = memberService.findById(memberId);
         Room room = roomService.checkRoomBegin(member, address);
         Script script = scriptService.findById(scriptId);
 
         roomService.updateScript(room, script);
-        for(RoomBeginRequest.Players guest : guests){
+        for (RoomBeginRequest.Players guest : guests) {
             Guest guest_ = guestService.findById(guest.guestId());
             if (guest.roleId() != null) {
                 Role role = roleService.findById(guest.roleId(), script);

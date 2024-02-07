@@ -1,6 +1,7 @@
 package com.mangojelly.backend.applicatoin.controller;
 
 import com.mangojelly.backend.applicatoin.dto.response.GetAllScriptResponse;
+import com.mangojelly.backend.applicatoin.dto.response.ScriptDetailResponse;
 import com.mangojelly.backend.applicatoin.facade.ScriptFacade;
 import com.mangojelly.backend.domain.script.Script;
 import com.mangojelly.backend.global.response.api.ApiResponse;
@@ -27,9 +28,9 @@ public class ScriptController {
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_SCRIPTS_GET, response));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<ApiResponse<Script>> getScriptById(@RequestParam(value="scriptId") int scriptId){
-        Script script = scriptFacade.getScript(scriptId);
-        return ResponseEntity.ok(new ApiResponse<>(ResponseCode.API_SUCCESS_ONESCRIPT_GET, script));
+    @GetMapping("")
+    public ResponseEntity<ApiResponse<ScriptDetailResponse>> getScriptById(@RequestParam(value="scriptId") int scriptId){
+        ScriptDetailResponse response = scriptFacade.getScript(scriptId);
+        return ResponseEntity.ok(new ApiResponse<>(ResponseCode.API_SUCCESS_ONESCRIPT_GET, response));
     }
 }

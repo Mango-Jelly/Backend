@@ -5,6 +5,7 @@ import com.mangojelly.backend.domain.guest.GuestRepository;
 import com.mangojelly.backend.domain.member.Member;
 import com.mangojelly.backend.domain.movie.MovieMapper;
 import com.mangojelly.backend.domain.movie.MovieRepository;
+import com.mangojelly.backend.domain.sceneMovie.SceneMovie;
 import com.mangojelly.backend.global.common.PythonRunComponent;
 import com.mangojelly.backend.applicatoin.dto.request.RoomBeginRequest;
 import com.mangojelly.backend.domain.member.Member;
@@ -59,7 +60,9 @@ public class RoomService {
         Room room = roomRepository.findByAddress(roomUUID).orElseThrow(() -> BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_ALREADY_DELETED));
         if (room.getMember().getId() != member.getId())
             throw BusinessException.of(ErrorCode.ERROR_CLIENT_BY_ROOM_IS_NOT_YOURS);
-
+//        for(SceneMovie sceneMovie :room.getSceneMovieList()){
+//            sceneMovie.getAddress()
+//        }
         // 연극 제목
         String movieTitle = room.getTitle() + roomUUID.toString().substring(0, 9);
         movieTitle = movieTitle.replace(" ", "");

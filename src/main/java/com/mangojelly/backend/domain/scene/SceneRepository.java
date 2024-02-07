@@ -1,6 +1,10 @@
 package com.mangojelly.backend.domain.scene;
 
+import com.mangojelly.backend.domain.script.Script;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-interface SceneRepository extends JpaRepository<Scene,Integer> {
+import java.util.List;
+
+public interface SceneRepository extends JpaRepository<Scene,Integer> {
+    List<Scene> findByScript(Script script);
 }

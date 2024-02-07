@@ -18,6 +18,7 @@ public enum ErrorCode {
 
     //SCENE
     API_ERROR_SCENE_NOT_EXIST(400,"S001","존재하지 않는 씬입니다."),
+    API_ERROR_SCRIPTSCENE_NOT_EXIST(400,"S002","스크립트에 해당하는 씬이 존재하지 않습니다."),
 
     //SCRIPT
     API_ERROR_SCRIPT_NOT_EXIST(400,"SC001","존재하지 않는 스크립트입니다."),
