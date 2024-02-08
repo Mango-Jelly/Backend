@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 
 import java.util.List;
 
-public interface MovieRepository extends JpaRepository<Movie,Integer> {
+interface MovieRepository extends JpaRepository<Movie,Integer> {
     List<Movie> findTop6ByVisibleIsTrueOrderByCreateAt();
     List<Movie> findAllByMember(Member member);
     @Procedure("find_movie")

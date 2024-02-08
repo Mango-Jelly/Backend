@@ -44,9 +44,7 @@ public class RoleService {
         for(String roleName : roleArr){
             Role role = roleRepository.findByScriptAndName(script, roleName.trim()).orElseThrow();
             roles.add(role);
-            System.out.println("롤서비스:" + roleName);
         }
-        System.out.println(roles.toString());
         return roles;
     }
 }

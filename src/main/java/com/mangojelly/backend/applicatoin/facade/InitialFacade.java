@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mangojelly.backend.applicatoin.runner.vo.SceneVo;
 import com.mangojelly.backend.applicatoin.runner.vo.ScriptVo;
 import com.mangojelly.backend.applicatoin.runner.vo.ScriptWrapper;
+import com.mangojelly.backend.domain.guest.Guest;
+import com.mangojelly.backend.domain.guest.GuestService;
 import com.mangojelly.backend.domain.member.Member;
 import com.mangojelly.backend.domain.member.MemberService;
 import com.mangojelly.backend.domain.movie.MovieService;
 import com.mangojelly.backend.domain.role.RoleService;
+import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomService;
 import com.mangojelly.backend.domain.scenario.Scenario;
 import com.mangojelly.backend.domain.scenario.ScenarioService;
@@ -21,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,6 +41,7 @@ public class InitialFacade {
     private final MemberService memberService;
     private final MovieService movieService;
     private final RoomService roomService;
+    private final GuestService guestService;
 
     private static final String PATH = "sample/image";
 
@@ -57,21 +62,28 @@ public class InitialFacade {
 
         Member member = memberService.findById(1);
         Script script = scriptService.findById(2);
+
         String title = "아기 돼지 삼형제 망고반(8세)";
         String dpt = "털보 초등학교";
         String party = "첫째돼지,이승헌,둘째돼지,김한슬,막내돼지,윤서안,늑대,박상진";
+
+        Room room = saveRoom(title, dpt, member ,UUID.fromString("d0ea544a-2a97-4975-af8c-82d4901627b4"), true);
+        List<Guest> guests = new ArrayList<>();
+        guests.add(guestService.save("이승현",room));
+        guests.add(guestService.save("김한슬",room));
+        guests.add(guestService.save("윤서안",room));
+        guests.add(guestService.save("박상진",room));
         String movieAddress = "https://mongo-jelly.s3.ap-northeast-2.amazonaws.com/frontSampleVideo.mp4";
 
-        saveMovie(member, script, true,  movieAddress, dpt, party, title);
-        saveRoom(title, dpt, member ,UUID.fromString("d0ea544a-2a97-4975-af8c-82d4901627b4"), true);
+        saveMovie(member, script, true,  movieAddress, dpt, guests, title);
     }
 
-    private void saveMovie(Member member, Script script, boolean visible, String address, String dpt, String party, String title){
+    private void saveMovie(Member member, Script script, boolean visible, String address, String dpt, List<Guest> party, String title){
         movieService.save(member, script, visible, address, dpt, party, title);
     }
 
-    private void saveRoom(String title, String dpt, Member member, UUID address, boolean visible){
-        roomService.save(title, dpt, member, visible, address);
+    private Room saveRoom(String title, String dpt, Member member, UUID address, boolean visible){
+        return roomService.save(title, dpt, member, visible, address);
     }
 
     private void saveMember(String email, String password, String nickname){

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface RoomRepository extends JpaRepository<Room,Integer> {
+interface RoomRepository extends JpaRepository<Room,Integer> {
     Integer deleteByAddress(UUID address);
     boolean existsByMember(Member member);
     Optional<Room> findByAddress(UUID address);

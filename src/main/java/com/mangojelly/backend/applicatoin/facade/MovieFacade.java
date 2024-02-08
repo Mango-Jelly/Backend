@@ -42,7 +42,7 @@ public class MovieFacade {
      * 공개 영상 리스트 GET 메서드
      * @return 영상 리스트
      */
-    public GetAllMovieResponse getAllMovies(){
+    public GetAllMovieResponse findAll(){
         List<Movie> movies = movieService.findAllMovies();
         return GetAllMovieResponse.of(movies);
     }
@@ -52,15 +52,15 @@ public class MovieFacade {
      * @param memberId
      * @return 회원의 영상리스트
      */
-    public GetAllMovieResponse getAllMyMovies(int memberId){
+    public GetAllMovieResponse findAllByMemberId(int memberId){
         Member member = memberService.findById(memberId);
         List<Movie> movies = movieService.findAllMyMovies(member);
         return GetAllMovieResponse.of(movies);
     }
 
     @Transactional
-    public MovieDetailResponse getOneMovie(int memberId, int movieId){
-        Movie movie = movieService.findOneMovie(memberId, movieId);
+    public MovieDetailResponse findByMemberIdAndMovieId(Integer memberId, int movieId){
+        Movie movie = movieService.findBy(memberId,movieId);
         return MovieDetailResponse.of(movie);
     }
 }

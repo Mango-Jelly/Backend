@@ -5,7 +5,7 @@ import com.mangojelly.backend.domain.scene.Scene;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SceneMovieMapper {
+class SceneMovieMapper {
     public SceneMovie toEntity(Room room, Scene scene, String movie){
         return SceneMovie.builder().room(room).scene(scene).address(movie).build();
     }

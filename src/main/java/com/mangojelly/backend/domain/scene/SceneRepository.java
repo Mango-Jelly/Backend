@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SceneRepository extends JpaRepository<Scene,Integer> {
+interface SceneRepository extends JpaRepository<Scene,Integer> {
     List<Scene> findByScript(Script script);
 }

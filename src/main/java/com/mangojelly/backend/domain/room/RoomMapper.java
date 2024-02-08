@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class RoomMapper {
+class RoomMapper {
     Room toEntity(String title, String dpt, Member member, UUID address, boolean visible){
         return Room.builder()
                 .title(title)

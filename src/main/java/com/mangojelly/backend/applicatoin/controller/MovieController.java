@@ -29,19 +29,19 @@ public class MovieController {
 
     @GetMapping("/list")
     public ResponseEntity<ApiResponse<GetAllMovieResponse>> getMovies(){
-        GetAllMovieResponse response = movieFacade.getAllMovies();
+        GetAllMovieResponse response = movieFacade.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_GET, response));
     }
 
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<GetAllMovieResponse>> getMyMovies(@Authenticated int memberId) {
-        GetAllMovieResponse response = movieFacade.getAllMyMovies(memberId);
+        GetAllMovieResponse response = movieFacade.findAllByMemberId(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIES_GET, response));
     }
 
     @GetMapping("/{movie_id}")
-    public ResponseEntity<ApiResponse<MovieDetailResponse>> getMoive(@Authenticated(required = false) int member_id, @PathVariable(name = "movie_id") int movie_id){
-        MovieDetailResponse response = movieFacade.getOneMovie(member_id, movie_id);
+    public ResponseEntity<ApiResponse<MovieDetailResponse>> getMovie(@Authenticated(required = false) Integer member_id, @PathVariable(name = "movie_id") int movie_id){
+        MovieDetailResponse response = movieFacade.findByMemberIdAndMovieId(member_id, movie_id);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIE_GET, response));
     }
 }

@@ -5,7 +5,7 @@ import com.mangojelly.backend.domain.script.Script;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MovieMapper {
+class MovieMapper {
     public Movie toEntity(Member member, Script script, String address, String title, String party, String dpt, boolean visible){
         return Movie.builder()
                 .member(member)
