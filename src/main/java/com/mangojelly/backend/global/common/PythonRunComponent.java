@@ -22,12 +22,6 @@ public class PythonRunComponent {
         ClassPathResource resource = new ClassPathResource("util");
         processBuilder.directory(resource.getFile());
         Process process = processBuilder.start();
-        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
-
-        String line;
-        while ((line = br.readLine()) != null) {
-            log.info(line);
-        }
 
         return process.waitFor() == 0;
     }

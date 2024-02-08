@@ -9,9 +9,9 @@ def concatenate_videos(output_path,*video_paths):
         return
 
     try:
-        video_clips = [VideoFileClip(video_path) for video_path in video_paths]
+        video_clips = [(VideoFileClip(video_path).resize(height=720)).set_fps(30) for video_path in video_paths]
         final_clip = concatenate_videoclips(video_clips)
-        final_clip.write_videofile(output_path, codec="libx264", fps=30)
+        final_clip.write_videofile(output_path, codec="libx264", ffmpeg_params=['-c:v', 'libx264', '-crf', '18'])
 
     except Exception as e:
         print(f"오류 발생: {e}")
@@ -20,7 +20,7 @@ def concatenate_videos(output_path,*video_paths):
 def delete_videos(*video_paths):
     for video_path in video_paths:
         os.remove(video_path)
-        print(f"{video_path}를 삭제했습니다.")
+        # print(f"{video_path}를 삭제했습니다.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Concatenate videos and optionally delete input videos.")
@@ -35,3 +35,5 @@ if __name__ == "__main__":
         delete_videos(*args.video_paths)
 
     print(f"영상이 성공적으로 합쳐졌습니다. 결과 파일: {args.output_video}")
+
+# python VideoEditor.py ./movie/final.mp4 --delete ./videos/0001.mp4 ./videos/0002.mp4 ./videos/0003.mp4 ./videos/0004.mp4

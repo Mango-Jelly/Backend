@@ -16,6 +16,7 @@ import com.mangojelly.backend.domain.sceneMovie.SceneMovie;
 import com.mangojelly.backend.domain.script.Script;
 import com.mangojelly.backend.domain.script.ScriptService;
 import com.mangojelly.backend.global.common.PythonRunComponent;
+import com.mangojelly.backend.global.common.S3FileUploader;
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,16 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,6 +52,7 @@ public class RoomFacade {
     private final RoleService roleService;
     private final MovieService movieService;
     private final PythonRunComponent pythonRunComponent;
+    private final S3FileUploader s3FileUploader;
 
     /**
      * 방 생성 여부 체크
@@ -86,50 +97,62 @@ public class RoomFacade {
 
         // 연극 제목
         String movieTitle = room.getTitle().replace(" ", "") + roomUUID.toString().substring(0, 8);
-        List<String> sceneMovieList = room.getSceneMovieList().stream().map(SceneMovie::getAddress).toList();
+        List<String> sceneMovieUrlList = room.getSceneMovieList().stream().map(SceneMovie::getAddress).toList();
 
-//        try{
-//            concatSceneMovie(movieTitle,);
-//        }catch (Exception e){
-//            throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_CREATE_FAIL);
-//        }
+        for (String sceneMovieUrl : sceneMovieUrlList)
+            loadSceneMovie(sceneMovieUrl);
+
+        concatSceneMovie(movieTitle, sceneMovieUrlList);
+        String address = s3FileUploader.uploadFile("scene/"+movieTitle+".mp4");
         List<Guest> guests = guestService.findAllByRoomId(room.getId());
-        movieService.save(member, room.getScript(), room.isVisible() ,roomUUID.toString(), movieTitle, guests, room.getDpt());
-    }
-    private void loadSceneMovie(List<String> sceneMovieList){
 
-
+        movieService.save(member, room.getScript(), room.isVisible(), address, movieTitle, guests, room.getDpt());
     }
 
+    /**
+     * sceneMovie download(url : s3)
+     *
+     * @param url
+     */
+    public void loadSceneMovie(String url) {
+        String[] fileName = url.split("/");
+        try {
+            InputStream in = URI.create(url).toURL().openStream();
+            Files.copy(in, Paths.get("src/main/resources/util/scene/" + fileName[fileName.length - 1]));
+        } catch (IOException e) {
+            System.out.println(e.toString());
+            throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_CREATE_FAIL);
+        }
+    }
 
-//    private void concatSceneMovie(String movieTitle,List<String> sceneMovieList) throws Exception {
-//        List<String> commandTest = new ArrayList<>();
-//        boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("window");
-//        String python = isWindows ? "python" : "python3";
-//        commandTest.add(python);
-//        commandTest.add("VideoEditor.py");
-//
-//        // S3의 기본 주소
-////        String basePath = "C:\\Users\\SSAFY\\Desktop\\util\\";
-//        // 이거 S3에 저장할 주소로 바꾸면됨
-//        StringBuilder sbOut = new StringBuilder();
-//        sbOut.append("./movie").append(movieTitle).append(".mp4");
-////        System.out.println(sbOut);
-//        commandTest.add(sbOut.toString());
-//
-//        // 이거 S3에 씬 영상 저장된 주소로 바꾸면 됨
-//        File videoDir = new File("./videos");
-//        ClassPathResource resource = new ClassPathResource("/videos");
-//        System.out.println(videoDir);
-//        for (String filename : sceneMovieList) {
-//            commandTest.add(videoDir + "/" + filename);
-//        }
-//        commandTest.add("--delete");
-//        System.out.println("아웃!!" + sbOut);
-//        System.out.println(commandTest);
-//        if(!pythonRunComponent.runPy(commandTest))
-//            throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_CREATE_FAIL);
-//    }
+
+    /**
+     * sceneMovie 합치기
+     *
+     * @param movieTitle
+     * @param sceneMovieList
+     * @throws Exception
+     */
+    public void concatSceneMovie(String movieTitle, List<String> sceneMovieList) {
+        List<String> commandTest = new ArrayList<>();
+        boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("window");
+        String python = isWindows ? "python" : "python3";
+        commandTest.add(python);
+        commandTest.add("VideoEditor.py");
+        commandTest.add("./scene/" + movieTitle + ".mp4");
+
+        for (String filename : sceneMovieList) {
+            commandTest.add("./videos/" + filename);
+        }
+        commandTest.add("--delete");
+        try{
+            if (!pythonRunComponent.runPy(commandTest)){
+                throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_CREATE_FAIL);
+            }
+        }catch (Exception e){
+            throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_CREATE_FAIL);
+        }
+    }
 
     /**
      * 연극 시작하기 메서드

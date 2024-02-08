@@ -41,7 +41,7 @@ public class RoomServiceTest {
 
             //WHEN, THEN
             assertDoesNotThrow(()->{
-                roomService.save(room.getTitle(), room.getDpt(), room.getMember());
+                roomService.save(room.getTitle(), room.getDpt(), room.getMember(),true);
             });
         }
 
@@ -54,7 +54,7 @@ public class RoomServiceTest {
 
             //WHEN, THEN
             assertThrows(BusinessException.class, ()->{
-                roomService.save(room.getTitle(), room.getDpt(), room.getMember());
+                roomService.save(room.getTitle(), room.getDpt(), room.getMember(),true);
             });
         }
 

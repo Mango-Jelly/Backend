@@ -54,7 +54,7 @@ public class S3FileUploader {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(file.getSize());
             metadata.setContentType(file.getContentType());
-            String key = path+"/"+file.getOriginalFilename();
+            String key = path+"/"+file.getName();
             amazonS3Client.putObject(bucket,key,file.getInputStream(),metadata);
             return getUrl(key);
         }catch (Exception e){

@@ -14,7 +14,9 @@ import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomService;
 import com.mangojelly.backend.domain.scenario.Scenario;
 import com.mangojelly.backend.domain.scenario.ScenarioService;
+import com.mangojelly.backend.domain.scene.Scene;
 import com.mangojelly.backend.domain.scene.SceneService;
+import com.mangojelly.backend.domain.sceneMovie.SceneMovieService;
 import com.mangojelly.backend.domain.script.Script;
 import com.mangojelly.backend.domain.script.ScriptService;
 import com.mangojelly.backend.global.common.S3FileUploader;
@@ -73,6 +75,8 @@ public class InitialFacade {
         guests.add(guestService.save("김한슬",room));
         guests.add(guestService.save("윤서안",room));
         guests.add(guestService.save("박상진",room));
+        roomService.updateScript(room,script);
+
         String movieAddress = "https://mongo-jelly.s3.ap-northeast-2.amazonaws.com/frontSampleVideo.mp4";
 
         saveMovie(member, script, true,  movieAddress, dpt, guests, title);
