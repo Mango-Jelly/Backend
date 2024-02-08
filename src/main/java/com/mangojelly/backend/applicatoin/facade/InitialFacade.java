@@ -44,50 +44,97 @@ public class InitialFacade {
     private final GuestService guestService;
 
     private static final String PATH = "sample/image";
+    private static final String movieDummyPath = "https://mongo-jelly.s3.ap-northeast-2.amazonaws.com/frontSampleVideo.mp4";
 
     public void run() throws IOException {
+        saveMember();
+        saveRoom(1, "털보 초등학교", "아기 돼지 삼형제 망고반(8세)",  "d0ea544a-2a97-4975-af8c-82d4901627b4", true);
+        saveScript();
+        saveMovie(1, 2, 1, true,  "털보 초등학교", "아기 돼지 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, true,  "털보 중학교", "아기 털보 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, true,  "털보 고등학교", "아기 돼지 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, true,  "털보 대학교", "아기 털보 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, true,  "털보 SSAFY", "아기 돼지 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, true,  "털보 집", "아기 털보 삼형제 망고반(8세)");
+
+        saveMovie(1, 2, 1, false,  "깅낭중 초등학교", "아기 낭중 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, false,  "깅낭중 중학교", "아기 낭중 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, false,  "깅낭중 고등학교", "아기 낭중 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, false,  "깅낭중 대학교", "아기 낭중 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, false,  "깅낭중 SSAFY", "아기 낭중 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, false,  "깅낭중 집", "아기 낭중 삼형제 망고반(8세)");
+    }
+
+    /**
+     * Member save method
+     */
+    private void saveMember(){
+        memberService.save("sangb@ssafy.com", "ssafy", "김상범");
+        memberService.save("apple@ssafy.com", "ssafy", "강용민");
+        memberService.save("south@ssafy.com", "ssafy", "김남준");
+    }
+
+    /**
+     * Room save method
+     * @param memberId  : member 의 ID
+     * @param dpt       : room 의 dpt
+     * @param title     : room 의 title
+     * @param address   : room 의 String으로 된 UUID 형식의 address
+     * @param visible   : room 의 공개 여부
+     */
+    private void saveRoom(int memberId,  String dpt, String title, String address, boolean visible){
+        Member member = memberService.findById(memberId);
+        roomService.save(title, dpt, member, visible, UUID.fromString(address));
+    }
+
+    /**
+     * Movie save method
+     * @param memberId  : member 의 ID
+     * @param scriptId  : script 의 ID
+     * @param roomId    : room 의 ID
+     * @param visible   : movie 의 공개 여부
+     * @param dpt       : movie 의 dpt
+     * @param title     : movie 의 title
+     */
+    private void saveMovie(int memberId, int scriptId, int roomId, boolean visible, String dpt, String title){
+        Member member = memberService.findById(memberId);
+        Script script = scriptService.findById(scriptId);
+        Room room = roomService.findById(roomId);
+
+        List<Guest> guests = new ArrayList<>();
+        guests.add(guestService.save("이승현", room, roleService.findById(3)));
+        guests.add(guestService.save("김한슬", room, roleService.findById(4)));
+        guests.add(guestService.save("윤서안", room, roleService.findById(5)));
+        guests.add(guestService.save("박상진", room, roleService.findById(6)));
+
+        movieService.save(member, script, visible, movieDummyPath, dpt, guests, title);
+    }
+
+
+
+    /**
+     * script를 저장하는 메서드
+     * Role & Scene 의 파일경로 = "TheThreeLittlePigs" 임시처리함.
+     * @throws IOException
+     */
+    private void saveScript() throws IOException{
         List<ScriptVo> scripts = loadScriptFile();
         for(ScriptVo scriptVo : scripts){
-            Script script = saveScript(scriptVo.title());
+            String image = s3FileUploader.uploadFile(PATH+"/"+"TheThreeLittlePigs"+"/thumbnail.png");
+            Script script = scriptService.save(scriptVo.title(),image);
             for(int i = 0; i < scriptVo.roles().size();i++){
-                saveRole(script,scriptVo.roles().get(i),i+1);
+                saveRole(script, "TheThreeLittlePigs" ,scriptVo.roles().get(i),i+1);
             }
             for(SceneVo sceneVo : scriptVo.scenes()){
-                saveScene(script, sceneVo);
+                saveScene(script, "TheThreeLittlePigs", sceneVo);
             }
         }
-        saveMember("sangb@ssafy.com", "ssafy", "김상범");
-        saveMember("apple@ssafy.com", "ssafy", "강용민");
-        saveMember("south@ssafy.com", "ssafy", "김남준");
-
-        Member member = memberService.findById(1);
-        Script script = scriptService.findById(2);
-
-        String title = "아기 돼지 삼형제 망고반(8세)";
-        String dpt = "털보 초등학교";
-        String party = "첫째돼지,이승헌,둘째돼지,김한슬,막내돼지,윤서안,늑대,박상진";
-
-        Room room = saveRoom(title, dpt, member ,UUID.fromString("d0ea544a-2a97-4975-af8c-82d4901627b4"), true);
-        List<Guest> guests = new ArrayList<>();
-        guests.add(guestService.save("이승현",room));
-        guests.add(guestService.save("김한슬",room));
-        guests.add(guestService.save("윤서안",room));
-        guests.add(guestService.save("박상진",room));
-        String movieAddress = "https://mongo-jelly.s3.ap-northeast-2.amazonaws.com/frontSampleVideo.mp4";
-
-        saveMovie(member, script, true,  movieAddress, dpt, guests, title);
     }
 
-    private void saveMovie(Member member, Script script, boolean visible, String address, String dpt, List<Guest> party, String title){
-        movieService.save(member, script, visible, address, dpt, party, title);
-    }
-
-    private Room saveRoom(String title, String dpt, Member member, UUID address, boolean visible){
-        return roomService.save(title, dpt, member, visible, address);
-    }
-
-    private void saveMember(String email, String password, String nickname){
-        memberService.save(email, password, nickname);
+    private void saveScene(Script script, String scriptName, SceneVo sceneVo){
+        String imageUrl = s3FileUploader.uploadFile(PATH+"/"+scriptName+"/scene/"+sceneVo.seq()+".png");
+        Scenario scenario =  scenarioService.save(script.getName()+"-"+sceneVo.title(),sceneVo.scenario());
+        sceneService.save(script,sceneVo.seq(),sceneVo.title(),scenario.getId(),imageUrl);
     }
 
     private void saveScene(Script script, SceneVo sceneVo){
@@ -96,14 +143,14 @@ public class InitialFacade {
         sceneService.save(script,sceneVo.seq(),sceneVo.title(),scenario.getId(),imageUrl);
     }
 
-    private void saveRole(Script script, String roleName,int idx){
-        String image = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/role/"+idx+".png");
+    private void saveRole(Script script, String scriptName, String roleName,int idx){
+        String image = s3FileUploader.uploadFile(PATH+"/"+scriptName+"/role/"+idx+".png");
         roleService.save(script,roleName,image);
     }
 
-    private Script saveScript(String title){
-        String image = s3FileUploader.uploadFile(PATH+"/"+title+"/thumbnail.png");
-        return scriptService.save(title,image);
+    private void saveRole(Script script, String roleName, int idx){
+        String image = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/role/"+idx+".png");
+        roleService.save(script,roleName,image);
     }
 
     private List<ScriptVo> loadScriptFile() throws IOException {

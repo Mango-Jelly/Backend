@@ -23,6 +23,20 @@ public class GuestService {
         return guestRepository.save(guestMapper.toEntity(name, room));
     }
 
+    /**
+     * InitialFacade 용 Role save 메서드
+     * @param name : guest name
+     * @param room : host room
+     * @param role : play에 부여된 role
+     * @return
+     */
+    @Transactional
+    public Guest save(String name, Room room, Role role){
+        Guest guest = guestRepository.save(guestMapper.toEntity(name, room));
+        guest.setRole(role);
+        return guest;
+    }
+
     @Transactional
     public List<Guest> updateSession(int id, String session){
         Guest guest = findById(id);
