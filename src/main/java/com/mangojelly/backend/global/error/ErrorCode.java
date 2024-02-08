@@ -18,13 +18,15 @@ public enum ErrorCode {
 
     //SCENE
     API_ERROR_SCENE_NOT_EXIST(400,"S001","존재하지 않는 씬입니다."),
+    API_ERROR_SCRIPTSCENE_NOT_EXIST(400,"S002","스크립트에 해당하는 씬이 존재하지 않습니다."),
 
     //SCRIPT
     API_ERROR_SCRIPT_NOT_EXIST(400,"SC001","존재하지 않는 스크립트입니다."),
 
     //MOVIE
     API_ERROR_MOVIE_NOT_EQUAL_SCRIPT(400,"MV001","선택한 스크립트와 맞지 않은 씬입니다."),
-
+    API_ERROR_MOVIE_NOT_EXIST(400,"MV002","선택한 연극이 없습니다."),
+    API_ERROR_MOVIE_CREATE_FAIL(400,"MV003","연극 생성에 실패했습니다."),
 
     //AUTH
     ERROR_CLIENT_BY_AUTHORIZATION_INFORMATION(400, "AUTH001", "권한 정보가 없는 토큰입니다."),

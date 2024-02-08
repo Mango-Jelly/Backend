@@ -31,6 +31,11 @@ public class S3FileUploader {
         }
     }
 
+    /**
+     * path에 존재하는 파일을 s3에 업로드한다.
+     * @param path
+     * @return
+     */
     public String uploadFile(String path){
         try{
             ClassPathResource resource = new ClassPathResource(path);

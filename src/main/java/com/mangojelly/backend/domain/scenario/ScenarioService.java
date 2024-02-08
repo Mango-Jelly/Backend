@@ -23,7 +23,7 @@ public class ScenarioService {
         return scenarioRepository.findById(id).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_SCENE_NOT_EXIST));
     }
 
-    public List<Scenario> findAllByScript(String script){
-        return scenarioRepository.findAllByIdContaining(script);
+    public List<Scenario> findAllByScript(String sceneTitle){
+        return scenarioRepository.findAllByIdContaining(sceneTitle);
     }
 }

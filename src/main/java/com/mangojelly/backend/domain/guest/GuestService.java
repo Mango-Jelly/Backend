@@ -3,7 +3,6 @@ package com.mangojelly.backend.domain.guest;
 import com.mangojelly.backend.applicatoin.dto.request.RoomBeginRequest;
 import com.mangojelly.backend.domain.role.Role;
 import com.mangojelly.backend.domain.room.Room;
-import com.mangojelly.backend.domain.room.RoomRepository;
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -54,4 +53,7 @@ public class GuestService {
         guestRepository.deleteById(id);
     }
 
+    public List<Guest> findAllByRoomId(int roomId){
+        return guestRepository.findAllByRoomId(roomId);
+    }
 }

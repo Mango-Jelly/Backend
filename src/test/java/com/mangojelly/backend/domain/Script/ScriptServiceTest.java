@@ -1,8 +1,5 @@
-package com.mangojelly.backend.domain.Script;
+package com.mangojelly.backend.domain.script;
 
-import com.mangojelly.backend.domain.script.Script;
-import com.mangojelly.backend.domain.script.ScriptRepository;
-import com.mangojelly.backend.domain.script.ScriptService;
 import com.mangojelly.backend.fixture.ScriptFixture;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import org.junit.jupiter.api.DisplayName;
