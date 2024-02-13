@@ -9,7 +9,7 @@ import java.util.List;
 
 interface MovieRepository extends JpaRepository<Movie,Integer> {
     List<Movie> findTop6ByVisibleIsTrueOrderByCreateAt();
-    List<Movie> findAllByMember(Member member);
+    List<Movie> findTop6ByMemberOrderByCreateAtDesc(Member member);
     @Procedure("find_movie")
     Movie findMovie(int memberId, int movieId);
 }
