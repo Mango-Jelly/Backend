@@ -1,9 +1,10 @@
 import sys
 import os
 import argparse
+import ffmpeg
 from moviepy.editor import VideoFileClip, concatenate_videoclips
 
-def concatenate_videos(output_path,*video_paths):
+def concatenate_videos(output_path,video_paths):
     if not video_paths:
         print("적어도 하나 이상의 비디오 파일 경로를 제공해야 합니다.")
         return
@@ -17,6 +18,21 @@ def concatenate_videos(output_path,*video_paths):
         print(f"오류 발생: {e}")
         delete_videos(video_paths)
 
+def convert_to_mp4(*video_paths):
+    converted_files = []
+    for video_path in video_paths:
+        filename, file_extension = os.path.splitext(video_path)
+        output_file = f"{filename}.mp4"
+        try:
+            ffmpeg.input(video_path).output(output_file).run()
+            print(f"File converted successfully: {output_file}")
+            converted_files.append(output_file)
+        except ffmpeg.Error as e:
+            print(f"Error occurred: {e.stderr}")
+            return
+    return converted_files
+
+
 def delete_videos(*video_paths):
     for video_path in video_paths:
         os.remove(video_path)
@@ -29,7 +45,8 @@ if __name__ == "__main__":
     parser.add_argument("video_paths", nargs="+", help="Paths of input videos to be concatenated")
     args = parser.parse_args()
 
-    concatenate_videos(args.output_video, *args.video_paths)
+    converted_files = convert_to_mp4(*args.video_paths)
+    concatenate_videos(args.output_video, converted_files)
 
     if args.delete:
         delete_videos(*args.video_paths)
