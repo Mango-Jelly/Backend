@@ -72,4 +72,7 @@ public class RoomService {
         return room;
     }
 
+    public Room findById(int id){
+        return roomRepository.findById(id).orElseThrow(() -> BusinessException.of(ErrorCode.API_ERROR_ROLE_NOT_EXIST));
+    }
 }
