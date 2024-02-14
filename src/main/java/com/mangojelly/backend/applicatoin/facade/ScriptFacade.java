@@ -39,8 +39,8 @@ public class ScriptFacade {
         Script script = scriptService.findById(id);
 
         List<SceneResponse> scenes = new ArrayList<>();
-        List<DialogResponse> dialogs = new ArrayList<>();
         for(Scene scene : sceneService.findByScript(script)){
+            List<DialogResponse> dialogs = new ArrayList<>();
             for(Scenario scenario : scenarioService.findAllByScript(scene.getAddress())) {
                 for(int i = 0; i < scenario.getScenario().size(); i++){
                     String[] scenarioSplit = scenario.getScenario().get(i).split(":");
