@@ -1,7 +1,7 @@
 {
   "scripts" : [
     {
-      "title" : "sample",
+      "title" : "토끼와 거북이",
       "roles" : ["role1","role2"],
       "scenes" : [
         {
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "title": "TheThreeLittlePigs",
+      "title": "아기 돼지 삼형제",
       "roles": ["첫째 돼지", "둘째 돼지", "막내 돼지", "늑대", "나레이션"],
       "scenes": [
         {
@@ -150,7 +150,7 @@
       ]
     },
     {
-      "title" : "pinocchio",
+      "title" : "피노키오",
       "roles" : ["role1","role2"],
       "scenes" : [
         {
@@ -183,7 +183,7 @@
       ]
     },
     {
-      "title" : "cinderella",
+      "title" : "백설공주",
       "roles" : ["role1","role2"],
       "scenes" : [
         {
@@ -216,7 +216,7 @@
       ]
     },
     {
-      "title" : "mangotail",
+      "title" : "백곰이 되고 싶은 흑곰",
       "roles" : ["role1","role2"],
       "scenes" : [
         {
@@ -249,7 +249,7 @@
       ]
     },
     {
-      "title" : "mangotale",
+      "title" : "몽몽씨 당근찾기",
       "roles" : ["role1","role2"],
       "scenes" : [
         {

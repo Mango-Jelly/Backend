@@ -48,7 +48,7 @@ public class InitialFacade {
 
     public void run() throws IOException {
         saveMember();
-        saveRoom(1, "털보 초등학교", "아기 돼지 삼형제 망고반(8세)",  "d0ea544a-2a97-4975-af8c-82d4901627b4", true);
+        saveRoom(1, "망고 초등학교", "1학년 6반 꿈빛제 아기돼지삼형제",  "d0ea544a-2a97-4975-af8c-82d4901627b4", true);
         saveScript();
         saveMovie(1, 2, 1, true,  "털보 초등학교", "아기 돼지 삼형제 망고반(8세)");
         saveMovie(1, 2, 1, true,  "털보 중학교", "아기 털보 삼형제 망고반(8세)");
@@ -119,14 +119,15 @@ public class InitialFacade {
      */
     private void saveScript() throws IOException{
         List<ScriptVo> scripts = loadScriptFile();
+        int scriptId = 1;
         for(ScriptVo scriptVo : scripts){
-            String image = s3FileUploader.uploadFile(PATH+"/"+"TheThreeLittlePigs"+"/thumbnail.png");
+            String image = s3FileUploader.uploadFile(PATH+"/"+ scriptId++ +"/thumbnail.png");
             Script script = scriptService.save(scriptVo.title(),image);
             for(int i = 0; i < scriptVo.roles().size();i++){
-                saveRole(script, "TheThreeLittlePigs" ,scriptVo.roles().get(i),i+1);
+                saveRole(script ,scriptVo.roles().get(i),i+1);
             }
             for(SceneVo sceneVo : scriptVo.scenes()){
-                saveScene(script, "TheThreeLittlePigs", sceneVo);
+                saveScene(script, sceneVo);
             }
         }
     }
@@ -138,7 +139,7 @@ public class InitialFacade {
     }
 
     private void saveScene(Script script, SceneVo sceneVo){
-        String imageUrl = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/scene/"+sceneVo.seq()+".png");
+        String imageUrl = s3FileUploader.uploadFile(PATH+"/"+script.getId()+"/scene/"+sceneVo.seq()+".png");
         Scenario scenario =  scenarioService.save(script.getName()+"-"+sceneVo.title(),sceneVo.scenario());
         sceneService.save(script,sceneVo.seq(),sceneVo.title(),scenario.getId(),imageUrl);
     }
@@ -149,7 +150,7 @@ public class InitialFacade {
     }
 
     private void saveRole(Script script, String roleName, int idx){
-        String image = s3FileUploader.uploadFile(PATH+"/"+script.getName()+"/role/"+idx+".png");
+        String image = s3FileUploader.uploadFile(PATH+"/"+script.getId()+"/role/"+idx+".png");
         roleService.save(script,roleName,image);
     }
 
