@@ -23,7 +23,7 @@ public class MovieService {
     }
 
     public List<Movie> findAllMyMovies(Member member) {
-        return movieRepository.findAllByMember(member);
+        return movieRepository.findTop6ByMemberOrderByCreateAtDesc(member);
     }
 
     public Movie findBy(Integer memberId, int movieId) {
