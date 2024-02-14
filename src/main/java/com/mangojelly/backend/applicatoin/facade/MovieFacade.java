@@ -61,6 +61,8 @@ public class MovieFacade {
     @Transactional
     public MovieDetailResponse findByMemberIdAndMovieId(Integer memberId, int movieId){
         Movie movie = movieService.findBy(memberId,movieId);
+        if(movie == null)
+            throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_NOT_FIND);
         return MovieDetailResponse.of(movie);
     }
 }
