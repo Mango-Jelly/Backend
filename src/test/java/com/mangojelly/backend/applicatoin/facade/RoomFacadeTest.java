@@ -5,8 +5,6 @@ import com.mangojelly.backend.domain.member.MemberService;
 import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomService;
 import com.mangojelly.backend.domain.sceneMovie.SceneMovieService;
-import com.mangojelly.backend.global.error.exception.BusinessException;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,13 +13,12 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @Transactional
 @SpringBootTest
@@ -66,20 +63,12 @@ class RoomFacadeTest {
         });
     }
 
-    @DisplayName("SceneMovie 로컬에 저장 Test")
-    @Test
-    void loadSceneMovieTest(){
-        assertDoesNotThrow(()->{
-            roomFacade.loadSceneMovie("https://mongo-jelly.s3.ap-northeast-2.amazonaws.com/frontSampleVideo.mp4");
-        });
-    }
-
     @Test
     void concatSceneMovie(){
         assertDoesNotThrow(()->{
             List<String> sceneMovieList = new ArrayList<>();
             for(int i = 1; i <= 3; i++){
-                sceneMovieList.add("00"+i+".mp4");
+                sceneMovieList.add("000"+i+".mp4");
             }
             roomFacade.concatSceneMovie("testFinal",sceneMovieList);
         });

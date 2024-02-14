@@ -83,7 +83,7 @@ if __name__ == "__main__":
         delete_videos(converted_webm_file)
         delete_videos(converted_mp4_file)
         delete_videos(converted_mp3_file)
-        # delete_videos(video_path)
-        # delete_videos(audio_path)
+        delete_videos(video_path)
+        delete_videos(audio_path)
 
 # python VideoConverter.py ./movie/0004.webm ./movie/0004.mp3 --delete
