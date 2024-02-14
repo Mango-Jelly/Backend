@@ -49,20 +49,24 @@ public class InitialFacade {
     public void run() throws IOException {
         saveMember();
         saveRoom(1, "망고 초등학교", "1학년 6반 꿈빛제 아기돼지삼형제",  "d0ea544a-2a97-4975-af8c-82d4901627b4", true);
+        saveRoom(2, "망고 초등학교", "1학년 6반 꿈빛제 아기돼지삼형제",  "d0ea544a-2a97-4975-af8c-82d4901627b5", true);
         saveScript();
-        saveMovie(1, 2, 1, true,  "털보 초등학교", "아기 돼지 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, true,  "털보 중학교", "아기 털보 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, true,  "털보 고등학교", "아기 돼지 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, true,  "털보 대학교", "아기 털보 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, true,  "털보 SSAFY", "아기 돼지 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, true,  "털보 집", "아기 털보 삼형제 망고반(8세)");
+        saveMovie(1, 2, 1, true,  "망고 초등학교", "1학년 6반 2024 상반기 마음제");
+        saveMovie(1, 2, 1, false,  "망고 초등학교", "사랑둥이들 연극 1학년 4반");
+        saveMovie(1, 3, 1, true,  "망고 초등학교", "2학년 5반 2024 망고제");
 
-        saveMovie(1, 2, 1, false,  "깅낭중 초등학교", "아기 낭중 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, false,  "깅낭중 중학교", "아기 낭중 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, false,  "깅낭중 고등학교", "아기 낭중 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, false,  "깅낭중 대학교", "아기 낭중 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, false,  "깅낭중 SSAFY", "아기 낭중 삼형제 망고반(8세)");
-        saveMovie(1, 2, 1, false,  "깅낭중 집", "아기 낭중 삼형제 망고반(8세)");
+        saveMovie(2, 1, 2, true,  "샛별 어린이집", "사랑반 2024 재롱잔치");
+        saveMovie(2, 1, 2, false,  "샛별 어린이집", "바나나반 2024 재롱잔치");
+        saveMovie(2, 5, 2, true,  "샛별 어린이집", "복숭아반 2021 재롱잔치");
+
+        saveMovie(1, 3, 1, false,  "망고 초등학교", "1학년 2반 2024 상반기 마음제");
+        saveMovie(1, 4, 1, true,  "망고 초등학교", "1학년 1반 2023 상반기 마음제");
+        saveMovie(1, 4, 1, false,  "망고 초등학교", "1학년 5반 2023 상반기 마음제");
+
+        saveMovie(2, 5, 2, false,  "샛별 어린이집", "사랑반 2024 재롱잔치");
+        saveMovie(2, 6, 2, true,  "샛별 어린이집", "바나나반 2024 재롱잔치");
+        saveMovie(2, 6, 2, false,  "샛별 어린이집", "복숭아반 2021 재롱잔치");
+
     }
 
     /**
@@ -110,8 +114,6 @@ public class InitialFacade {
         movieService.save(member, script, visible, movieDummyPath, dpt, guests, title);
     }
 
-
-
     /**
      * script를 저장하는 메서드
      * Role & Scene 의 파일경로 = "TheThreeLittlePigs" 임시처리함.
@@ -132,21 +134,10 @@ public class InitialFacade {
         }
     }
 
-    private void saveScene(Script script, String scriptName, SceneVo sceneVo){
-        String imageUrl = s3FileUploader.uploadFile(PATH+"/"+scriptName+"/scene/"+sceneVo.seq()+".png");
-        Scenario scenario =  scenarioService.save(script.getName()+"-"+sceneVo.title(),sceneVo.scenario());
-        sceneService.save(script,sceneVo.seq(),sceneVo.title(),scenario.getId(),imageUrl);
-    }
-
     private void saveScene(Script script, SceneVo sceneVo){
         String imageUrl = s3FileUploader.uploadFile(PATH+"/"+script.getId()+"/scene/"+sceneVo.seq()+".png");
         Scenario scenario =  scenarioService.save(script.getName()+"-"+sceneVo.title(),sceneVo.scenario());
         sceneService.save(script,sceneVo.seq(),sceneVo.title(),scenario.getId(),imageUrl);
-    }
-
-    private void saveRole(Script script, String scriptName, String roleName,int idx){
-        String image = s3FileUploader.uploadFile(PATH+"/"+scriptName+"/role/"+idx+".png");
-        roleService.save(script,roleName,image);
     }
 
     private void saveRole(Script script, String roleName, int idx){
