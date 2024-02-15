@@ -109,7 +109,8 @@ public class InitialFacade {
         guests.add(guestService.save("이승현", room, roleService.findById(3)));
         guests.add(guestService.save("김한슬", room, roleService.findById(4)));
         guests.add(guestService.save("윤서안", room, roleService.findById(5)));
-        guests.add(guestService.save("박상진", room, roleService.findById(6)));
+        guests.add(guestService.save("김상범", room, roleService.findById(6)));
+        guests.add(guestService.save("강용민", room, roleService.findById(7)));
 
         movieService.save(member, script, visible, movieDummyPath, dpt, guests, title);
     }
