@@ -4,6 +4,7 @@ import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,8 @@ public class FileDownLoader {
 
 
     private void getInputStream(InputStream inputStream, String fileName,String path) throws IOException {
-        String filePath = resourceLoader.getResource("classpath:util/VideoConcater.py").getFile().toPath().toString();
+//        String filePath = resourceLoader.getResource("classpath:util/VideoConcater.py").getFile().toPath().toString();
+        String filePath = new ClassPathResource("util/VideoConcater.py").getFile().toPath().toString();
         String rootPath = filePath.substring(0,filePath.length()-"util/VideoConcater.py".length());
         Path destinationPath = Path.of(rootPath+path+fileName);
 
