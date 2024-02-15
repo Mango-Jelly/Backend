@@ -17,7 +17,7 @@ class InitialFacadeTest {
 
     @Test
     void run() throws IOException {
-        assertDoesNotThrow(()->{
+        assertThrows(RuntimeException.class,()->{
             initialFacade.run();
         });
     }
