@@ -19,6 +19,7 @@ public class S3FileUploader {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+
     public String uploadFile(String filePath, String path) {
         try{
             ClassPathResource resource = new ClassPathResource(filePath);
@@ -54,7 +55,7 @@ public class S3FileUploader {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(file.getSize());
             metadata.setContentType(file.getContentType());
-            String key = path+"/"+file.getOriginalFilename();
+            String key = path+"/"+file.getName();
             amazonS3Client.putObject(bucket,key,file.getInputStream(),metadata);
             return getUrl(key);
         }catch (Exception e){

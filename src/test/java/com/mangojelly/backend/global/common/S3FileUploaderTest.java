@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@Transactional(readOnly = true)
+@Transactional
 @SpringBootTest
 class S3FileUploaderTest {
 
@@ -37,4 +37,6 @@ class S3FileUploaderTest {
             });
         }
     }
+
+
 }

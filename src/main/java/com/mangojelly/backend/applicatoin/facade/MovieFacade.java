@@ -9,33 +9,56 @@ import com.mangojelly.backend.domain.movie.MovieService;
 import com.mangojelly.backend.domain.scene.Scene;
 import com.mangojelly.backend.domain.scene.SceneService;
 import com.mangojelly.backend.domain.sceneMovie.SceneMovieService;
+import com.mangojelly.backend.global.common.FileDownLoader;
+import com.mangojelly.backend.global.common.PythonRunComponent;
 import com.mangojelly.backend.global.error.ErrorCode;
 import com.mangojelly.backend.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
+@Slf4j
 public class MovieFacade {
     private final MemberService memberService;
     private final SceneService sceneService;
     private final SceneMovieService sceneMovieService;
     private final MovieService movieService;
+    private final FileDownLoader fileDownLoader;
+    private final PythonRunComponent pythonRunComponent;
 
     @Transactional
-    public void saveSceneMovie(int memberId, int sceneId, MultipartFile movieFile) {
+    public void saveSceneMovie(int memberId, int sceneId, MultipartFile movieFile, MultipartFile audioFile) {
         Member member = memberService.findById(memberId);
         Scene scene = sceneService.findById(sceneId);
         if (member.getRoom().getScript().getId() != scene.getScript().getId()) {
             throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_NOT_EQUAL_SCRIPT);
         }
+        fileDownLoader.loadFile(movieFile,"util/videos/");
+        fileDownLoader.loadFile(audioFile,"util/videos/");
 
-        sceneMovieService.save(member.getRoom(), scene, movieFile);
+        List<String> commandTest = new ArrayList<>();
+        commandTest.add("VideoConverter.py");
+        commandTest.add("./videos/" + movieFile.getOriginalFilename());
+        commandTest.add("./videos/" + audioFile.getOriginalFilename());
+
+        commandTest.add("--delete");
+        try {
+            pythonRunComponent.runPy(commandTest);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_CREATE_FAIL);
+        }
+        String editedScneMovieName = movieFile.getOriginalFilename();
+        String substring = editedScneMovieName.substring(0, editedScneMovieName.length() - ".mp4".length() - 1);
+        sceneMovieService.save(member.getRoom(), scene, "util/videos/"+ substring +".mp4");
     }
 
     /**
