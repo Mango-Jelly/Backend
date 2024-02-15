@@ -33,7 +33,7 @@ public class TokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public TokenResponse generateTokenResponse(Authentication auth) {
+    public String[] generateTokenResponse(Authentication auth) {
         String authorities =
                 auth.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
@@ -57,10 +57,7 @@ public class TokenProvider {
                         .signWith(key, SignatureAlgorithm.HS512)
                         .compact();
 
-        return TokenResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+        return new String[] { accessToken, refreshToken };
     }
 
     public Authentication getAuthentication(String accessToken) {
