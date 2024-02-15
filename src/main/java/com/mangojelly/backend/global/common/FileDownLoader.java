@@ -52,7 +52,7 @@ public class FileDownLoader {
 
     private void getInputStream(InputStream inputStream, String fileName,String path) throws IOException {
 //        String filePath = resourceLoader.getResource("classpath:util/VideoConcater.py").getFile().toPath().toString();
-        String filePath = new ClassPathResource("util/VideoConcater.py").getFile().toPath().toString();
+        String filePath = new ClassPathResource("util/VideoConcater.py").getPath().toString();
         String rootPath = filePath.substring(0,filePath.length()-"util/VideoConcater.py".length());
         Path destinationPath = Path.of(rootPath+path+fileName);
 
