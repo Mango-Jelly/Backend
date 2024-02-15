@@ -35,19 +35,20 @@ public class MovieFacade {
     private final PythonRunComponent pythonRunComponent;
 
     @Transactional
-    public void saveSceneMovie(int memberId, int sceneId, MultipartFile movieFile, MultipartFile audioFile) {
+    public void saveSceneMovie(int memberId, int sceneId, MultipartFile movieFile) {
         Member member = memberService.findById(memberId);
         Scene scene = sceneService.findById(sceneId);
         if (member.getRoom().getScript().getId() != scene.getScript().getId()) {
             throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_NOT_EQUAL_SCRIPT);
         }
         fileDownLoader.loadFile(movieFile,"util/videos/");
-        fileDownLoader.loadFile(audioFile,"util/videos/");
 
         List<String> commandTest = new ArrayList<>();
         commandTest.add("VideoConverter.py");
+        String movieFileName = movieFile.getOriginalFilename();
+        String fileName = movieFileName.substring(0,movieFileName.length()-".webm".length());
         commandTest.add("./videos/" + movieFile.getOriginalFilename());
-        commandTest.add("./videos/" + audioFile.getOriginalFilename());
+        commandTest.add("./videos/" + fileName+".mp3");
 
         commandTest.add("--delete");
         try {
@@ -59,6 +60,16 @@ public class MovieFacade {
         String editedScneMovieName = movieFile.getOriginalFilename();
         String substring = editedScneMovieName.substring(0, editedScneMovieName.length() - ".mp4".length() - 1);
         sceneMovieService.save(member.getRoom(), scene, "util/videos/"+ substring +".mp4");
+    }
+
+    @Transactional
+    public void saveSceneAudio(int memberId, int sceneId, MultipartFile audioFile){
+        Member member = memberService.findById(memberId);
+        Scene scene = sceneService.findById(sceneId);
+        if (member.getRoom().getScript().getId() != scene.getScript().getId()) {
+            throw BusinessException.of(ErrorCode.API_ERROR_MOVIE_NOT_EQUAL_SCRIPT);
+        }
+        fileDownLoader.loadFile(audioFile,"util/videos/");
     }
 
     /**

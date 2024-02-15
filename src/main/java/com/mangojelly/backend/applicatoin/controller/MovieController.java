@@ -21,8 +21,12 @@ public class MovieController {
     private final MovieFacade movieFacade;
 
     @PostMapping("/scene")
-    public ResponseEntity<ApiResponse<Void>> saveSceneMovie(@Authenticated int memberId, @RequestParam(value = "sceneId") int sceneId, @RequestParam(value = "movie") MultipartFile movieFile, @RequestParam(value = "audio") MultipartFile audioFile){
-        movieFacade.saveSceneMovie(memberId,sceneId, movieFile,audioFile);
+    public ResponseEntity<ApiResponse<Void>> saveSceneMovie(@Authenticated int memberId, @RequestParam(value = "sceneId") int sceneId, @RequestParam(value = "movie",required = false) MultipartFile movieFile, @RequestParam(value = "audio",required = false) MultipartFile audioFile){
+        if(movieFile != null){
+            movieFacade.saveSceneMovie(memberId,sceneId, movieFile);
+        } else if (audioFile != null) {
+            movieFacade.saveSceneAudio(memberId,sceneId, audioFile);
+        }
         return ResponseEntity.ok(new ApiResponse<>(ResponseCode.API_SUCCESS_MOVIE_SCENE_CREATE));
     }
 
