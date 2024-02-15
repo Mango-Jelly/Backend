@@ -32,6 +32,7 @@ public class AuthenticatedArgumentResolver implements HandlerMethodArgumentResol
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String authorization = Objects.requireNonNull(request)
                 .getHeader(HEADER_AUTHORIZATION);
+        if(authorization == null) return 0;
         String token = authorization.substring(BEARER_TYPE.length()).trim();
         return Math.toIntExact(tokenProvider.getPayload(token));
     }

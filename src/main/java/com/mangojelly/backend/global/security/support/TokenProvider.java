@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Component
 public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 60 * 60;
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24 * 5;
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24 * 7;
 
     private final Key key;
@@ -33,7 +33,7 @@ public class TokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public TokenResponse generateTokenResponse(Authentication auth) {
+    public String[] generateTokenResponse(Authentication auth) {
         String authorities =
                 auth.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
@@ -57,10 +57,7 @@ public class TokenProvider {
                         .signWith(key, SignatureAlgorithm.HS512)
                         .compact();
 
-        return TokenResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+        return new String[] { accessToken, refreshToken };
     }
 
     public Authentication getAuthentication(String accessToken) {

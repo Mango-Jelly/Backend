@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 interface ScenarioRepository extends MongoRepository<Scenario,String> {
-    List<Scenario> findAllByIdContaining(String sceneTitle);
+    List<Scenario> findAllById(String sceneTitle);
 }
