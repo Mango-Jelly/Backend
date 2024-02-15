@@ -14,9 +14,7 @@ import com.mangojelly.backend.domain.room.Room;
 import com.mangojelly.backend.domain.room.RoomService;
 import com.mangojelly.backend.domain.scenario.Scenario;
 import com.mangojelly.backend.domain.scenario.ScenarioService;
-import com.mangojelly.backend.domain.scene.Scene;
 import com.mangojelly.backend.domain.scene.SceneService;
-import com.mangojelly.backend.domain.sceneMovie.SceneMovieService;
 import com.mangojelly.backend.domain.script.Script;
 import com.mangojelly.backend.domain.script.ScriptService;
 import com.mangojelly.backend.global.common.S3FileUploader;
@@ -68,7 +66,6 @@ public class InitialFacade {
         saveMovie(2, 5, 2, false,  "샛별 어린이집", "사랑반 2024 재롱잔치");
         saveMovie(2, 6, 2, true,  "샛별 어린이집", "바나나반 2024 재롱잔치");
         saveMovie(2, 6, 2, false,  "샛별 어린이집", "복숭아반 2021 재롱잔치");
-
     }
 
     /**
